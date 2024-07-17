@@ -1,0 +1,41 @@
+.modal-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 560px;
+  height: 768px;
+  background-color: white;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-bottom: 8px solid #1976D2;
+}
+
+.modal-app-bar {
+  background-color: #f9fafb; 
+  border-bottom: 1px solid lightgrey;
+}
+
+.modal-app-bar-text {
+  font-family: 'Dosis', sans-serif !important;
+}
+
+.modal-content {
+  flex-grow: 1;
+  padding: 16px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  padding: 16px;
+  margin-top: auto;
+  text-transform: 'none' 
+}
+
+.helper-text-right {
+  text-align: right;
+}
