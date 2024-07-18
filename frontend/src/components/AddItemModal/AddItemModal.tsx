@@ -5,11 +5,11 @@ import Modal from '@mui/material/Modal';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-import { GenericsModalProps } from '../../types/GenericsModalProps';
+import { AddItemModalProps } from '../../types/AddItemModalProps';
 import { TextField, MenuItem, Button } from '@mui/material';
 import './AddItemModal.scss';
 
-const AddItemModal: React.FC<GenericsModalProps> = ({ open, handleClose }) => {
+const AddItemModal: React.FC<AddItemModalProps> = ({ open, handleClose }) => {
   // Predefined array for quantity options
   const quantityOptions = [1, 2, 3];
 

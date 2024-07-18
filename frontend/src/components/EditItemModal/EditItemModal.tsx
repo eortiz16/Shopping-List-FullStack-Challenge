@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-import { GenericsModalProps } from '../../types/GenericsModalProps';
+import { EditItemModalProps } from '../../types/EditItemModalProps';
 import {
   TextField,
   MenuItem,
@@ -15,7 +15,11 @@ import {
 } from '@mui/material';
 import './EditItemModal.scss';
 
-const EditItemModal: React.FC<GenericsModalProps> = ({ open, handleClose }) => {
+const EditItemModal: React.FC<EditItemModalProps> = ({
+  open,
+  handleClose,
+  item,
+}) => {
   // Predefined array for quantity options
   const quantityOptions = [1, 2, 3];
 
@@ -23,8 +27,17 @@ const EditItemModal: React.FC<GenericsModalProps> = ({ open, handleClose }) => {
 
   const [itemName, setItemName] = React.useState('');
   const [description, setDescription] = React.useState('');
-  const [quantity, setQuantity] = React.useState('');
+  const [quantity, setQuantity] = React.useState<number | string>('');
   const [checked, setChecked] = React.useState(false);
+
+  useEffect(() => {
+    if (item) {
+      setItemName(item.name);
+      setDescription(item.description);
+      setQuantity(item.quantity);
+      setChecked(item.purchased);
+    }
+  }, [item]);
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -73,13 +86,13 @@ const EditItemModal: React.FC<GenericsModalProps> = ({ open, handleClose }) => {
             component="h2"
             sx={{ mt: 2 }}
           >
-            Add an Item
+            Edit Item
           </Typography>
           <Typography
             id="modal-modal-description"
             sx={{ mt: 1, color: '#757575' }}
           >
-            Add your new item below
+            Modify your item below
           </Typography>
           <form onSubmit={handleSubmit}>
             <TextField
@@ -101,7 +114,7 @@ const EditItemModal: React.FC<GenericsModalProps> = ({ open, handleClose }) => {
               rows={4}
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              inputProps={{ maxLength: 100 }}
+              inputProps={{ maxLength: CHARACTER_LIMIT }}
               helperText={`${description.length}/${CHARACTER_LIMIT}`}
               FormHelperTextProps={{
                 sx: { textAlign: 'right' },
@@ -135,20 +148,20 @@ const EditItemModal: React.FC<GenericsModalProps> = ({ open, handleClose }) => {
               }
               label="Purchase"
             />
-            <Box className="modal-actions">
-              <Button onClick={handleClose} sx={{ textTransform: 'none' }}>
-                Cancel
-              </Button>
-              <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                sx={{ textTransform: 'none' }}
-              >
-                Add Task
-              </Button>
-            </Box>
           </form>
+        </Box>
+        <Box className="modal-actions">
+          <Button onClick={handleClose} sx={{ textTransform: 'none' }}>
+            Cancel
+          </Button>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            sx={{ textTransform: 'none' }}
+          >
+            Save Changes
+          </Button>
         </Box>
       </Box>
     </Modal>

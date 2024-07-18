@@ -1,6 +1,7 @@
 import * as React from 'react';
 import TopBar from '../components/TopBar/TopBar';
 import EmptyListComponent from '../components/EmptyListComponent/EmptyListComponent';
+import PopulatedListComponent from '../components/PopulatedListComponent/PopulatedListComponent';
 import './ShoppingListPage.scss'; // Import CSS file for this page
 
 export default function ShoppingListPage() {
@@ -8,7 +9,8 @@ export default function ShoppingListPage() {
     <div className="shopping-list-page">
       <TopBar />
       <div className="content">
-        <EmptyListComponent />
+        <PopulatedListComponent />
+        {/* <EmptyListComponent /> */}
       </div>
     </div>
   );

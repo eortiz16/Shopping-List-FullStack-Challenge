@@ -1,6 +1,6 @@
-// mock/shoppingList.js
+import { Item } from '../types/Item';
 
-const shoppingList = [
+const shoppingList: Item[] = [
   {
     id: 1,
     name: 'Vegan Burgers',
