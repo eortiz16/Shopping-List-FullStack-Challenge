@@ -9,10 +9,7 @@ import { GenericsModalProps } from '../../types/GenericsModalProps';
 import { TextField, MenuItem, Button } from '@mui/material';
 import './AddItemModal.scss';
 
-const AddItemModal: React.FC<GenericsModalProps> = ({
-  open,
-  handleClose,
-}) => {
+const AddItemModal: React.FC<GenericsModalProps> = ({ open, handleClose }) => {
   // Predefined array for quantity options
   const quantityOptions = [1, 2, 3];
 
@@ -98,8 +95,11 @@ const AddItemModal: React.FC<GenericsModalProps> = ({
               onChange={(e) => setDescription(e.target.value)}
               inputProps={{ maxLength: 100 }}
               helperText={`${description.length}/${CHARACTER_LIMIT}`}
-              FormHelperTextProps={{ sx: { textAlign: 'right' }, className: 'helper-text' }}
-              />
+              FormHelperTextProps={{
+                sx: { textAlign: 'right' },
+                className: 'helper-text',
+              }}
+            />
             <TextField
               fullWidth
               margin="normal"
@@ -118,9 +118,7 @@ const AddItemModal: React.FC<GenericsModalProps> = ({
             </TextField>
           </form>
         </Box>
-        <Box
-          className="modal-actions"
-        >
+        <Box className="modal-actions">
           <Button onClick={handleClose} sx={{ textTransform: 'none' }}>
             Cancel
           </Button>

@@ -6,13 +6,16 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import { GenericsModalProps } from '../../types/GenericsModalProps';
-import { TextField, MenuItem, Button, Checkbox, FormControlLabel } from '@mui/material';
+import {
+  TextField,
+  MenuItem,
+  Button,
+  Checkbox,
+  FormControlLabel,
+} from '@mui/material';
 import './EditItemModal.scss';
 
-const EditItemModal: React.FC<GenericsModalProps> = ({
-  open,
-  handleClose,
-}) => {
+const EditItemModal: React.FC<GenericsModalProps> = ({ open, handleClose }) => {
   // Predefined array for quantity options
   const quantityOptions = [1, 2, 3];
 
@@ -100,7 +103,10 @@ const EditItemModal: React.FC<GenericsModalProps> = ({
               onChange={(e) => setDescription(e.target.value)}
               inputProps={{ maxLength: 100 }}
               helperText={`${description.length}/${CHARACTER_LIMIT}`}
-              FormHelperTextProps={{ sx: { textAlign: 'right' }, className: 'helper-text' }}
+              FormHelperTextProps={{
+                sx: { textAlign: 'right' },
+                className: 'helper-text',
+              }}
             />
             <TextField
               fullWidth
