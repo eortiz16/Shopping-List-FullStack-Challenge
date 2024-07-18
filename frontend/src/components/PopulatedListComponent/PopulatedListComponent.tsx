@@ -1,30 +1,44 @@
 import React, { useState } from 'react';
 import { Box, Button, Typography } from '@mui/material';
-import AddItemModal from '../AddItemModal/AddItemModal';
-import shoppingListData from '../../mock/shoppingList';
 import ItemCard from '../ItemCard/ItemCard';
 import EditItemModal from '../EditItemModal/EditItemModal';
+import DeleteItemModal from '../DeleteItemModal/DeleteItemModal';
 import { Item } from '../../types/Item';
+import { PopulatedListComponentProps } from '../../types/PopulatedListComponentProps';
+import { ModalType } from '../../types/ModalType';
 import './PopulatedListComponent.scss';
 
-export default function PopulatedListComponent() {
-  const [items, setItems] = useState(shoppingListData);
-  const [openAdd, setOpenAdd] = useState(false);
-  const [openEdit, setOpenEdit] = useState(false);
+/**
+ * PopulatedListComponent is responsible for rendering the populated shopping list.
+ * This component allows users to add new items, edit existing items, and delete items
+ * from the shopping list. It also handles toggling the purchased status of items.
+ *
+ * @param {Object} props - The props object.
+ * @param {Item[]} props.items - The array of items in the shopping list.
+ * @param {Function} props.setItems - The function to update the items state.
+ * @param {Function} props.handleOpenAdd - The function to open the modal for adding a new item.
+ * @param {Function} props.handleDeleteItem - The function to delete an item from the shopping list.
+ *
+ * @returns {JSX.Element} The rendered component.
+ */
+const PopulatedListComponent: React.FC<PopulatedListComponentProps> = ({
+  items,
+  setItems,
+  handleOpenAdd,
+  handleDeleteItem
+}) => {
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
-
-  const handleOpenAdd = () => setOpenAdd(true);
-  const handleCloseAdd = () => setOpenAdd(false);
-
-  const handleOpenEdit = (item: Item) => {
-    setSelectedItem(item);
-    setOpenEdit(true);
+  const [modalType, setModalType] = useState<ModalType | null>(null);
+  
+  const handleOpenModal = (type: ModalType) => {
+    setModalType(type);
   };
 
-  const handleCloseEdit = () => {
+  const handleCloseModal = () => {
+    setModalType(null);
     setSelectedItem(null);
-    setOpenEdit(false);
   };
+
 
   const handleTogglePurchased = (id: number) => {
     setItems(
@@ -34,8 +48,21 @@ export default function PopulatedListComponent() {
     );
   };
 
-  const handleDeleteItem = (id: number) => {
-    setItems(items.filter((item) => item.id !== id));
+  const handleOpenEdit = (item: Item) => {
+    setSelectedItem(item);
+    handleOpenModal(ModalType.EDIT);
+  };
+
+  const handleOpenDelete = (item: Item) => {
+    setSelectedItem(item);
+    handleOpenModal(ModalType.DELETE);
+  };
+
+  const handleDeleteSelectedItem = () => {
+    if (selectedItem) {
+      handleDeleteItem(selectedItem.id);
+      handleCloseModal();
+    }
   };
 
   return (
@@ -55,18 +82,27 @@ export default function PopulatedListComponent() {
             item={item}
             onTogglePurchased={handleTogglePurchased}
             onEdit={() => handleOpenEdit(item)}
-            onDelete={() => handleDeleteItem(item.id)}
+            onDelete={() => handleOpenDelete(item)}
           />
         ))}
       </Box>
-      <AddItemModal open={openAdd} handleClose={handleCloseAdd} />
+
       {selectedItem && (
         <EditItemModal
-          open={openEdit}
-          handleClose={handleCloseEdit}
+          open={modalType === ModalType.EDIT}
+          handleClose={handleCloseModal}
           item={selectedItem}
+        />
+      )}
+      {selectedItem && (
+        <DeleteItemModal
+          open={modalType === ModalType.DELETE}
+          handleClose={handleCloseModal}
+          onDelete={handleDeleteSelectedItem}
         />
       )}
     </Box>
   );
-}
+};
+
+export default PopulatedListComponent;

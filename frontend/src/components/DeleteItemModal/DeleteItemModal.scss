@@ -1,0 +1,53 @@
+$modal-width: 480px;
+$modal-height: auto;
+$modal-background-color: white;
+$modal-border-color: #1976d2;
+$modal-padding: 16px;
+$modal-gap: 16px;
+$modal-title-color: #5c5c5c;
+$modal-subtitle-color: #757575;
+$button-primary-color: #1a73e8;
+
+.delete-modal-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: $modal-width;
+  background-color: $modal-background-color;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: $modal-padding;
+  border-radius: 0px;
+  height: $modal-height;
+
+  .delete-modal-title {
+    color: $modal-title-color;
+    font-family: 'Nunito', sans-serif;
+    margin-bottom: 8px;
+  }
+
+  .delete-modal-subtitle {
+    color: $modal-subtitle-color;
+    font-family: 'Nunito', sans-serif;
+    margin-bottom: 24px;
+  }
+
+  .delete-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: $modal-gap;
+
+    .delete-modal-actions-button {
+      font-family: 'Nunito', sans-serif;
+      text-transform: none;
+    }
+
+    .delete-modal-actions-button:last-of-type {
+      background-color: $button-primary-color;
+      color: white;
+    }
+  }
+}

@@ -15,15 +15,25 @@ import {
 } from '@mui/material';
 import './EditItemModal.scss';
 
+/**
+ * EditItemModal component allows users to edit the details of an existing item in the shopping list.
+ * It provides fields to modify the item's name, description, quantity, and purchase status.
+ *
+ * @param {Object} props - The props object.
+ * @param {boolean} props.open - The state to control the modal's open/close status.
+ * @param {Function} props.handleClose - The function to close the modal.
+ * @param {Item} props.item - The item object containing id, name, description, quantity, and purchased status.
+ *
+ * @returns {JSX.Element} The rendered edit item modal component.
+ */
 const EditItemModal: React.FC<EditItemModalProps> = ({
   open,
   handleClose,
   item,
 }) => {
   // Predefined array for quantity options
-  const quantityOptions = [1, 2, 3];
-
-  const CHARACTER_LIMIT = 100;
+  const quantityOptions: number[] = [1, 2, 3];
+  const CHARACTER_LIMIT: number = 100;
 
   const [itemName, setItemName] = React.useState('');
   const [description, setDescription] = React.useState('');
@@ -39,8 +49,7 @@ const EditItemModal: React.FC<EditItemModalProps> = ({
     }
   }, [item]);
 
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
+  const handleSubmit = () => {
     // Handle form submission logic here
     console.log('Item Name:', itemName);
     console.log('Description:', description);
@@ -56,58 +65,41 @@ const EditItemModal: React.FC<EditItemModalProps> = ({
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <Box className="modal-box">
+      <Box className="edit-modal-box">
         <AppBar position="static" sx={{ boxShadow: 'none' }}>
-          <Toolbar className="modal-app-bar">
-            <Typography
-              variant="h6"
-              component="div"
-              sx={{ flexGrow: 1, color: '#4F4F4F' }}
-              className="modal-app-bar-text"
-            >
+          <Toolbar className="edit-modal-app-bar">
+            <Typography variant="h6" className="edit-modal-app-bar-text">
               SHOPPING LIST
             </Typography>
             <IconButton
               edge="end"
-              color="inherit"
               onClick={handleClose}
               aria-label="close"
-              sx={{ color: 'black' }}
+              className="edit-modal-app-bar-button"
             >
               <div className="material-icons">skip_next</div>
             </IconButton>
           </Toolbar>
         </AppBar>
 
-        <Box className="modal-content">
-          <Typography
-            id="modal-modal-title"
-            variant="h6"
-            component="h2"
-            sx={{ mt: 2 }}
-          >
+        <Box className="edit-modal-content">
+          <Typography variant="h6" className="edit-modal-title">
             Edit Item
           </Typography>
-          <Typography
-            id="modal-modal-description"
-            sx={{ mt: 1, color: '#757575' }}
-          >
+          <Typography className="edit-modal-subtitle">
             Modify your item below
           </Typography>
-          <form onSubmit={handleSubmit}>
+          <Box className="edit-modal-form">
             <TextField
               fullWidth
-              margin="normal"
-              id="item-name"
               label="Item Name"
               variant="outlined"
               value={itemName}
               onChange={(e) => setItemName(e.target.value)}
+              sx={{ mb: 2 }}
             />
             <TextField
               fullWidth
-              margin="normal"
-              id="description"
               label="Description"
               variant="outlined"
               multiline
@@ -117,19 +109,18 @@ const EditItemModal: React.FC<EditItemModalProps> = ({
               inputProps={{ maxLength: CHARACTER_LIMIT }}
               helperText={`${description.length}/${CHARACTER_LIMIT}`}
               FormHelperTextProps={{
-                sx: { textAlign: 'right' },
-                className: 'helper-text',
+                className: 'edit-modal-helper-text',
               }}
+              sx={{ mb: 2 }}
             />
             <TextField
               fullWidth
-              margin="normal"
-              id="quantity"
               label="How many?"
               variant="outlined"
               select
               value={quantity}
               onChange={(e) => setQuantity(e.target.value)}
+              sx={{ mb: 2 }}
             >
               {quantityOptions.map((option) => (
                 <MenuItem key={option} value={option}>
@@ -148,17 +139,17 @@ const EditItemModal: React.FC<EditItemModalProps> = ({
               }
               label="Purchase"
             />
-          </form>
+          </Box>
         </Box>
-        <Box className="modal-actions">
-          <Button onClick={handleClose} sx={{ textTransform: 'none' }}>
+        <Box className="edit-modal-actions">
+          <Button onClick={handleClose} className="edit-modal-actions-button">
             Cancel
           </Button>
           <Button
-            type="submit"
+            onClick={handleSubmit}
             variant="contained"
             color="primary"
-            sx={{ textTransform: 'none' }}
+            className="edit-modal-actions-button"
           >
             Save Changes
           </Button>

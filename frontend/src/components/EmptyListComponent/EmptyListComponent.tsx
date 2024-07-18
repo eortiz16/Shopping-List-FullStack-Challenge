@@ -1,14 +1,18 @@
 import * as React from 'react';
 import { Box, Card, CardContent, Typography, Button } from '@mui/material';
-import { useState } from 'react';
-import AddItemModal from '../AddItemModal/AddItemModal';
+import { EmptyListComponentProps } from '../../types/EmptyListComponentProps';
 import './EmptyListComponent.scss';
 
-export default function EmptyListComponent() {
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
+/**
+ * EmptyListComponent displays a message indicating that the shopping list is empty.
+ * It provides a button to add the first item to the list.
+ *
+ * @param {Object} props - The props object.
+ * @param {Function} props.handleOpenAdd - The function to open the modal for adding a new item.
+ *
+ * @returns {JSX.Element} The rendered empty list component.
+ */
+const EmptyListComponent: React.FC<EmptyListComponentProps> = ({ handleOpenAdd }) => {
   return (
     <Box className="empty-list-container">
       <Card className="empty-list-card">
@@ -23,13 +27,14 @@ export default function EmptyListComponent() {
           <Button
             variant="contained"
             className="empty-list-button"
-            onClick={handleOpen}
+            onClick={handleOpenAdd}
           >
             Add your first item
           </Button>
         </CardContent>
       </Card>
-      <AddItemModal open={open} handleClose={handleClose} />
     </Box>
   );
-}
+};
+
+export default EmptyListComponent;

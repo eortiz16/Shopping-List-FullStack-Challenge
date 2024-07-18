@@ -1,4 +1,3 @@
-// Variables
 $modal-width: 560px;
 $modal-height: 768px;
 $modal-background-color: white;
@@ -11,9 +10,9 @@ $modal-gap: 16px;
 $helper-text-color: grey;
 $helper-text-font-size: 12px;
 $modal-title-color: #5c5c5c;
+$modal-text-color: #4F4F4F;
 
-// Modal Styles
-.modal-box {
+.add-modal-box {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -26,39 +25,70 @@ $modal-title-color: #5c5c5c;
   flex-direction: column;
   justify-content: space-between;
   border-bottom: 8px solid $modal-border-color;
+  border-radius: 0px; 
 
-  .modal-title {
-    color: $modal-title-color;
-  }
-
-  .modal-app-bar {
+  .add-modal-app-bar {
     background-color: $modal-app-bar-background;
     border-bottom: 1px solid $modal-app-bar-border;
+    display: flex;
+    align-items: center;
 
-    .modal-app-bar-text {
+    .add-modal-app-bar-text {
       font-family: $font-family;
+      color: $modal-text-color !important;
+      flex-grow: 1;
+    }
+
+    .add-modal-app-bar-button {
+      color: $modal-text-color !important;
     }
   }
 
-  .modal-content {
+  .add-modal-content {
     flex-grow: 1;
+    display: flex;
+    flex-direction: column;
     padding: $modal-padding;
+    margin-top: 8px;
+
+    .add-modal-title {
+      color: $modal-title-color;
+      font-family: $font-family;
+    }
+
+    .add-modal-subtitle {
+      margin-top: 8px;
+      margin-bottom: 8px;
+      color: $modal-text-color;
+      font-family: $font-family;
+    }
+
+    .add-modal-helper-text {
+      position: absolute;
+      bottom: 8px; 
+      right: 8px; 
+      font-size: $helper-text-font-size; 
+      color: $helper-text-color; 
+      text-align: right;
+      font-family: $font-family;
+    }  
+
+    .add-modal-form {
+      margin-top: 8px;
+      margin-bottom: 8px;
+    }
   }
 
-  .modal-actions {
+  .add-modal-actions {
     display: flex;
     justify-content: flex-end;
     gap: $modal-gap;
     padding: $modal-padding;
     margin-top: auto;
-    text-transform: none;
+
+    .add-modal-actions-button {
+      text-transform: none;
+      font-family: $font-family;
+    }
   }
-  
-  .helper-text {
-    position: absolute;
-    bottom: 8px; 
-    right: 8px; 
-    font-size: $helper-text-font-size; 
-    color: $helper-text-color; 
-  }  
 }

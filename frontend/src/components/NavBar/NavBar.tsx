@@ -1,8 +1,14 @@
 import * as React from 'react';
 import { Box, Toolbar, Typography, AppBar } from '@mui/material';
-import './TopBar.scss';
+import './NavBar.scss';
 
-export default function TopBar() {
+/**
+ * NavBar component renders the top navigation bar for the application.
+ * It includes the application title and uses custom styling.
+ *
+ * @returns {JSX.Element} The rendered top bar component.
+ */
+const NavBar: React.FC = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" className="custom-app-bar">
@@ -19,4 +25,6 @@ export default function TopBar() {
       </AppBar>
     </Box>
   );
-}
+};
+
+export default NavBar;

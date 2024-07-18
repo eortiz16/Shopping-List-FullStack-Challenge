@@ -1,5 +1,12 @@
 import { Item } from '../types/Item';
 
+/**
+ * shoppingList is a predefined array of items representing a sample shopping list.
+ * Each item includes an id, name, description, quantity, and purchased status.
+ * The quantity of each item is randomly generated between 1 and 3.
+ *
+ * @type {Item[]}
+ */
 const shoppingList: Item[] = [
   {
     id: 1,
@@ -69,7 +76,7 @@ const shoppingList: Item[] = [
     name: 'Tomatoes',
     description: 'Fresh tomatoes for salad and burgers',
     quantity: Math.floor(Math.random() * 3) + 1,
-    purchased: true, // Only this item is purchased
+    purchased: true,
   },
 ];
 
