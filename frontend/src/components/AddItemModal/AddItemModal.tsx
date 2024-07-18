@@ -66,7 +66,7 @@ const AddItemModal: React.FC<GenericsModalProps> = ({
             id="modal-modal-title"
             variant="h6"
             component="h2"
-            sx={{ mt: 2 }}
+            className="modal-title"
           >
             Add an Item
           </Typography>
@@ -98,8 +98,8 @@ const AddItemModal: React.FC<GenericsModalProps> = ({
               onChange={(e) => setDescription(e.target.value)}
               inputProps={{ maxLength: 100 }}
               helperText={`${description.length}/${CHARACTER_LIMIT}`}
-              FormHelperTextProps={{ sx: { textAlign: 'right' } }}
-            />
+              FormHelperTextProps={{ sx: { textAlign: 'right' }, className: 'helper-text' }}
+              />
             <TextField
               fullWidth
               margin="normal"

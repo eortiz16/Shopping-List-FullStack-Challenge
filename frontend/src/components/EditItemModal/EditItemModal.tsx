@@ -100,7 +100,7 @@ const EditItemModal: React.FC<GenericsModalProps> = ({
               onChange={(e) => setDescription(e.target.value)}
               inputProps={{ maxLength: 100 }}
               helperText={`${description.length}/${CHARACTER_LIMIT}`}
-              FormHelperTextProps={{ sx: { textAlign: 'right' } }}
+              FormHelperTextProps={{ sx: { textAlign: 'right' }, className: 'helper-text' }}
             />
             <TextField
               fullWidth

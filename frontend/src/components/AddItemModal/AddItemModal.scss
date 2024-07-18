@@ -1,41 +1,64 @@
+// Variables
+$modal-width: 560px;
+$modal-height: 768px;
+$modal-background-color: white;
+$modal-border-color: #1976d2;
+$modal-app-bar-background: #f9fafb;
+$modal-app-bar-border: lightgrey;
+$font-family: 'Dosis', sans-serif !important;
+$modal-padding: 16px;
+$modal-gap: 16px;
+$helper-text-color: grey;
+$helper-text-font-size: 12px;
+$modal-title-color: #5c5c5c;
+
+// Modal Styles
 .modal-box {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 560px;
-  height: 768px;
-  background-color: white;
+  width: $modal-width;
+  height: $modal-height;
+  background-color: $modal-background-color;
   box-shadow: none;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border-bottom: 8px solid #1976D2;
-}
+  border-bottom: 8px solid $modal-border-color;
 
-.modal-app-bar {
-  background-color: #f9fafb; 
-  border-bottom: 1px solid lightgrey;
-}
+  .modal-title {
+    color: $modal-title-color;
+  }
 
-.modal-app-bar-text {
-  font-family: 'Dosis', sans-serif !important;
-}
+  .modal-app-bar {
+    background-color: $modal-app-bar-background;
+    border-bottom: 1px solid $modal-app-bar-border;
 
-.modal-content {
-  flex-grow: 1;
-  padding: 16px;
-}
+    .modal-app-bar-text {
+      font-family: $font-family;
+    }
+  }
 
-.modal-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 16px;
-  padding: 16px;
-  margin-top: auto;
-  text-transform: 'none' 
-}
+  .modal-content {
+    flex-grow: 1;
+    padding: $modal-padding;
+  }
 
-.helper-text-right {
-  text-align: right;
+  .modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: $modal-gap;
+    padding: $modal-padding;
+    margin-top: auto;
+    text-transform: none;
+  }
+  
+  .helper-text {
+    position: absolute;
+    bottom: 8px; 
+    right: 8px; 
+    font-size: $helper-text-font-size; 
+    color: $helper-text-color; 
+  }  
 }
