@@ -75,7 +75,7 @@ const AddItemContent: React.FC<AddItemContentProps> = ({ handleAddItem, handleCa
         </Grid>
       </Box>
       <Box>
-        <ModalActions handleCancel={handleCancel} handleSubmit={handleSubmit} mode={ModalType.ADD}/>
+        <ModalActions handleCancel={handleCancel} handleSubmit={handleSubmit} mode={ModalType.ADD} />
       </Box>
     </Box>
   );
