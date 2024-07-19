@@ -1,0 +1,13 @@
+# Use the official PostgreSQL image from the Docker Hub
+FROM postgres:13-alpine
+
+# Set environment variables for PostgreSQL
+ENV POSTGRES_DB=shopping_list
+ENV POSTGRES_USER=shopping_user
+ENV POSTGRES_PASSWORD=password
+
+# Copy initialization script
+COPY init.sql /docker-entrypoint-initdb.d/
+
+# Expose the PostgreSQL port
+EXPOSE 5432
