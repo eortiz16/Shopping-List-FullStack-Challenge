@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Box, Card, CardContent, Typography, Button } from '@mui/material';
 import { EmptyListComponentProps } from '../../types/EmptyListComponentProps';
 import './EmptyListComponent.scss';
