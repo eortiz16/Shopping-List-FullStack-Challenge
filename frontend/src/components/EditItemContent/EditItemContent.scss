@@ -1,0 +1,46 @@
+$modal-width: 560px;
+$modal-height: 768px;
+$modal-background-color: white;
+$modal-border-color: #1976d2;
+$modal-app-bar-background: #f9fafb;
+$modal-app-bar-border: lightgrey;
+$font-family: 'Dosis', sans-serif !important;
+$modal-padding: 8px;
+$modal-gap: 16px;
+$helper-text-color: grey;
+$helper-text-font-size: 12px;
+$modal-title-color: #5c5c5c;
+$modal-text-color: #4f4f4f;
+
+.edit-modal-content {
+  flex-grow: 1;
+  padding: $modal-padding;
+  display: flex;
+  flex-direction: column;
+
+  .edit-modal-title {
+    color: $modal-title-color;
+    font-family: $font-family;
+  }
+
+  .edit-modal-subtitle {
+    margin-top: 8px;
+    margin-bottom: 8px;
+    color: $modal-text-color;
+    font-family: $font-family;
+  }
+
+  .edit-modal-helper-text {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    font-size: $helper-text-font-size;
+    color: $helper-text-color;
+    text-align: right;
+    font-family: $font-family;
+  }
+
+  .edit-modal-form {
+    margin-top: 8px;
+  }
+}

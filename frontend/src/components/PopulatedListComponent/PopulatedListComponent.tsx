@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import ItemCard from '../ItemCard/ItemCard';
-import EditItemModal from '../EditItemModal/EditItemModal';
 import DeleteItemModal from '../DeleteItemModal/DeleteItemModal';
 import { Item } from '../../types/Item';
 import { PopulatedListComponentProps } from '../../types/PopulatedListComponentProps';
 import { ModalType } from '../../types/ModalType';
 import './PopulatedListComponent.scss';
+import StyledModal from '../../shared/StyledModal/StyledModal';
+import EditItemContent from '../EditItemContent/EditItemContent';
 
 /**
  * PopulatedListComponent is responsible for rendering the populated shopping list.
@@ -29,7 +30,7 @@ const PopulatedListComponent: React.FC<PopulatedListComponentProps> = ({
 }) => {
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
   const [modalType, setModalType] = useState<ModalType | null>(null);
-  
+
   const handleOpenModal = (type: ModalType) => {
     setModalType(type);
   };
@@ -88,11 +89,12 @@ const PopulatedListComponent: React.FC<PopulatedListComponentProps> = ({
       </Box>
 
       {selectedItem && (
-        <EditItemModal
+        <StyledModal
           open={modalType === ModalType.EDIT}
-          handleClose={handleCloseModal}
-          item={selectedItem}
-        />
+          handleCancel={handleCloseModal}
+        >
+          <EditItemContent handleCancel={handleCloseModal} item={selectedItem} />
+        </StyledModal>
       )}
       {selectedItem && (
         <DeleteItemModal

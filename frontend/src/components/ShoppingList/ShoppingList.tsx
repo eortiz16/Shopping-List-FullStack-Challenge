@@ -1,35 +1,29 @@
-import * as React from 'react';
+import React from 'react';
 import { useState } from 'react';
 import EmptyListComponent from '../../components/EmptyListComponent/EmptyListComponent';
 import PopulatedListComponent from '../../components/PopulatedListComponent/PopulatedListComponent';
 import shoppingListData from '../../mock/shoppingList';
-import AddItemModal from '../AddItemModal/AddItemModal';
 import { Item } from '../../types/Item';
 import './ShoppingList.scss';
+import StyledModal from '../../shared/StyledModal/StyledModal';
+import AddItemContent from '../AddItemContent/AddItemContent';
 
-/**
- * ShoppingList is the main component of the application, responsible for managing the core logic
- * and state of the shopping list. It features both the empty and populated shopping cart views.
- * This component initializes the mock items and passes them down to child components.
- * All core functionalities, such as adding, editing, and deleting items, as well as managing the
- * shopping list state, are handled here.
- *
- * @returns {JSX.Element} The rendered component.
- */
 const ShoppingList: React.FC = () => {
-    const [items, setItems] = useState(shoppingListData);
-    const [openAdd, setOpenAdd] = useState(false);
-    const handleOpenAdd = () => setOpenAdd(true);
-    const handleCloseAdd = () => setOpenAdd(false);
+    const [items, setItems] = useState<Item[]>(shoppingListData);
+    const [openAddModal, setOpenAddModal] = useState(false);
 
-    const handleAddItem = (item: Item) => {
-        // Temporary Add Item
-        setItems((prevItems) => [
-            ...prevItems,
-            { ...item, id: prevItems.length ? prevItems[prevItems.length - 1].id + 1 : 1 },
-        ]);
-        setOpenAdd(false);
-    }
+    const handleOpenAddModal = () => setOpenAddModal(true);
+    const handleCloseAddModal = () => setOpenAddModal(false);
+
+    const handleAddItem = (item: Omit<Item, 'id' | 'purchased'>) => {
+        const newItem: Item = {
+            id: items.length ? items[items.length - 1].id + 1 : 1,
+            ...item,
+            purchased: false
+        };
+        setItems((prevItems) => [...prevItems, newItem]);
+        setOpenAddModal(false);
+    };
 
     const handleDeleteItem = (id: number) => {
         setItems((prevItems) => prevItems.filter(item => item.id !== id));
@@ -38,11 +32,16 @@ const ShoppingList: React.FC = () => {
     return (
         <>
             {items.length > 0 ? (
-                <PopulatedListComponent items={items} setItems={setItems} handleOpenAdd={handleOpenAdd} handleDeleteItem={handleDeleteItem} />
+                <PopulatedListComponent items={items} setItems={setItems} handleOpenAdd={handleOpenAddModal} handleDeleteItem={handleDeleteItem} />
             ) : (
-                <EmptyListComponent handleOpenAdd={handleOpenAdd} />
+                <EmptyListComponent handleOpenAdd={handleOpenAddModal} />
             )}
-            <AddItemModal open={openAdd} handleClose={handleCloseAdd} handleAddItem={handleAddItem} />
+            <StyledModal
+                open={openAddModal}
+                handleCancel={handleCloseAddModal}
+            >
+                <AddItemContent handleAddItem={handleAddItem} handleCancel={handleCloseAddModal} />
+            </StyledModal>
         </>
     );
 };
