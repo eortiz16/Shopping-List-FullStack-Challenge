@@ -1,0 +1,33 @@
+$font-family: 'Nunito', sans-serif !important;
+$text-color: darkgrey;
+$button-margin-top: 16px !important;
+
+.empty-list-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+
+  .empty-list-card {
+    width: 614px;
+    height: 290px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: none;
+    border: 1px solid lightgrey;
+
+    .empty-list-text {
+      font-family: $font-family;
+      color: $text-color;
+      text-transform: none !important;
+    }
+
+    .empty-list-button {
+      font-family: $font-family;
+      margin-top: $button-margin-top;
+      text-transform: none !important;
+    }
+  }
+}
