@@ -11,11 +11,11 @@ import './LoadingComponent.scss';
  * @return {React.ReactElement} - A React element representing the loading spinner.
  */
 const Loading: React.FC = () => {
-    return (
-        <Box className="loading-container" data-testid="loading-container">
-            <CircularProgress className="circular-progress" />
-        </Box>
-    );
-}
+  return (
+    <Box className="loading-container" data-testid="loading-container">
+      <CircularProgress className="circular-progress" />
+    </Box>
+  );
+};
 
 export default Loading;

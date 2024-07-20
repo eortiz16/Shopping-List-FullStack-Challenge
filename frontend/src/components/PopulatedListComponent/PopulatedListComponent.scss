@@ -2,22 +2,27 @@ $font-family: 'Nunito', sans-serif !important;
 $text-color: darkgrey;
 $button-margin-top: 16px !important;
 
-.populated-list-container {
+.parent-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  flex-grow: 1;
+  justify-content: flex-start; 
+  align-items: center; 
+  height: 100vh;
   padding: 16px;
-  margin-top: 16px;
+  box-sizing: border-box;
+}
+
+.populated-list-container {
+  width: 80%; // Adjust width as needed
+  padding: 16px;
+  box-sizing: border-box; // Ensure padding is included in the width
 
   .header {
     display: flex;
     justify-content: space-between;
-    width: 80%;
     margin-bottom: 16px;
   }
 
   .items-list {
-    width: 80%;
   }
 }

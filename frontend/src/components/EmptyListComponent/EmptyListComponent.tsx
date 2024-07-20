@@ -12,7 +12,9 @@ import './EmptyListComponent.scss';
  *
  * @returns {JSX.Element} The rendered empty list component.
  */
-const EmptyListComponent: React.FC<EmptyListComponentProps> = ({ handleOpenAdd }) => {
+const EmptyListComponent: React.FC<EmptyListComponentProps> = ({
+  handleOpenAdd,
+}) => {
   return (
     <Box className="empty-list-container">
       <Card className="empty-list-card">

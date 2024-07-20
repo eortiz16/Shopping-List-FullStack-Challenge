@@ -15,6 +15,7 @@ import './EditItemContent.scss';
 
 const EditItemContent: React.FC<EditItemContentProps> = ({
   handleCancel,
+  handleEditItem,
   item,
 }) => {
   // Predefined array for quantity options
@@ -36,16 +37,18 @@ const EditItemContent: React.FC<EditItemContentProps> = ({
   }, [item]);
 
   const handleSubmit = () => {
-    // Handle form submission logic here
-    console.log('Item Name:', itemName);
-    console.log('Description:', description);
-    console.log('Quantity:', quantity);
-    console.log('Checked:', checked);
+    const updatedItem = {
+      name: itemName,
+      description,
+      quantity: Number(quantity),
+      purchased: checked,
+    };
+
+    handleEditItem(item.id, updatedItem);
     handleCancel();
   };
 
   return (
-
     <Box className="edit-modal-content">
       <Typography variant="h6" className="edit-modal-title">
         Edit Item
@@ -65,7 +68,6 @@ const EditItemContent: React.FC<EditItemContentProps> = ({
             />
           </Grid>
           <Grid item xs={12}>
-
             <TextField
               fullWidth
               label="Description"
@@ -114,12 +116,13 @@ const EditItemContent: React.FC<EditItemContentProps> = ({
       </Box>
 
       <Box>
-        <ModalActions handleCancel={handleCancel} handleSubmit={handleSubmit} mode={ModalType.EDIT} />
+        <ModalActions
+          handleCancel={handleCancel}
+          handleSubmit={handleSubmit}
+          mode={ModalType.EDIT}
+        />
       </Box>
-
     </Box>
-
-
   );
 };
 

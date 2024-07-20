@@ -7,13 +7,16 @@ import ModalActions from '../../shared/ModalActions/ModalActions';
 import './AddItemContent.scss';
 import { ModalType } from '../../types/ModalType';
 
-const AddItemContent: React.FC<AddItemContentProps> = ({ handleAddItem, handleCancel }) => {
-  const quantityOptions: number[] = [1, 2, 3];
+const AddItemContent: React.FC<AddItemContentProps> = ({
+  handleAddItem,
+  handleCancel,
+}) => {
+  const quantityOptions: number[] = [0, 1, 2, 3];
   const CHARACTER_LIMIT: number = 100;
 
   const [itemName, setItemName] = React.useState<string>('');
   const [description, setDescription] = React.useState<string>('');
-  const [quantity, setQuantity] = React.useState<number | undefined>(undefined);
+  const [quantity, setQuantity] = React.useState<number>(0);
 
   const handleSubmit = () => {
     if (itemName && description && quantity !== undefined) {
@@ -75,7 +78,11 @@ const AddItemContent: React.FC<AddItemContentProps> = ({ handleAddItem, handleCa
         </Grid>
       </Box>
       <Box>
-        <ModalActions handleCancel={handleCancel} handleSubmit={handleSubmit} mode={ModalType.ADD} />
+        <ModalActions
+          handleCancel={handleCancel}
+          handleSubmit={handleSubmit}
+          mode={ModalType.ADD}
+        />
       </Box>
     </Box>
   );

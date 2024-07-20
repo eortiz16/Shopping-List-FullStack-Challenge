@@ -22,7 +22,6 @@ const DeleteItemModal: React.FC<DeleteItemModalProps> = ({
   handleClose,
   onDelete,
 }) => {
-
   const handleDelete = () => {
     onDelete();
     handleClose();

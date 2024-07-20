@@ -9,24 +9,12 @@ import './PopulatedListComponent.scss';
 import StyledModal from '../../shared/StyledModal/StyledModal';
 import EditItemContent from '../EditItemContent/EditItemContent';
 
-/**
- * PopulatedListComponent is responsible for rendering the populated shopping list.
- * This component allows users to add new items, edit existing items, and delete items
- * from the shopping list. It also handles toggling the purchased status of items.
- *
- * @param {Object} props - The props object.
- * @param {Item[]} props.items - The array of items in the shopping list.
- * @param {Function} props.setItems - The function to update the items state.
- * @param {Function} props.handleOpenAdd - The function to open the modal for adding a new item.
- * @param {Function} props.handleDeleteItem - The function to delete an item from the shopping list.
- *
- * @returns {JSX.Element} The rendered component.
- */
 const PopulatedListComponent: React.FC<PopulatedListComponentProps> = ({
   items,
   setItems,
   handleOpenAdd,
-  handleDeleteItem
+  handleDeleteItem,
+  handleEditItem,
 }) => {
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
   const [modalType, setModalType] = useState<ModalType | null>(null);
@@ -40,13 +28,16 @@ const PopulatedListComponent: React.FC<PopulatedListComponentProps> = ({
     setSelectedItem(null);
   };
 
-
   const handleTogglePurchased = (id: number) => {
-    setItems(
-      items.map((item) =>
-        item.id === id ? { ...item, purchased: !item.purchased } : item
-      )
+    const updatedItems = items.map((item) =>
+      item.id === id ? { ...item, purchased: !item.purchased } : item
     );
+    setItems(updatedItems);
+
+    const updatedItem = updatedItems.find((item) => item.id === id);
+    if (updatedItem) {
+      handleEditItem(id, updatedItem);
+    }
   };
 
   const handleOpenEdit = (item: Item) => {
@@ -67,43 +58,58 @@ const PopulatedListComponent: React.FC<PopulatedListComponentProps> = ({
   };
 
   return (
-    <Box className="populated-list-container">
-      <Box className="header">
-        <Typography variant="h5" component="div">
-          Your Items
-        </Typography>
-        <Button variant="contained" onClick={handleOpenAdd}>
-          Add Item
-        </Button>
-      </Box>
-      <Box className="items-list">
-        {items.map((item) => (
-          <ItemCard
-            key={item.id}
-            item={item}
-            onTogglePurchased={handleTogglePurchased}
-            onEdit={() => handleOpenEdit(item)}
-            onDelete={() => handleOpenDelete(item)}
-          />
-        ))}
-      </Box>
+    <div className="parent-container">
+      <div className="populated-list-container">
+        <Box className="header">
+          <Typography variant="h5" component="div">
+            Your Items
+          </Typography>
+          <Button variant="contained" onClick={handleOpenAdd}>
+            Add Item
+          </Button>
+        </Box>
+        <Box className="items-list">
+          {items.map((item) => (
+            <ItemCard
+              key={item.id}
+              item={item}
+              onTogglePurchased={() => handleTogglePurchased(item.id)}
+              onEdit={() => handleOpenEdit(item)}
+              onDelete={() => handleOpenDelete(item)}
+            />
+          ))}
+        </Box>
 
-      {selectedItem && (
-        <StyledModal
-          open={modalType === ModalType.EDIT}
-          handleCancel={handleCloseModal}
-        >
-          <EditItemContent handleCancel={handleCloseModal} item={selectedItem} />
-        </StyledModal>
-      )}
-      {selectedItem && (
-        <DeleteItemModal
-          open={modalType === ModalType.DELETE}
-          handleClose={handleCloseModal}
-          onDelete={handleDeleteSelectedItem}
-        />
-      )}
-    </Box>
+        {selectedItem && modalType === ModalType.EDIT && (
+          <StyledModal
+            key="edit-modal"
+            open={modalType === ModalType.EDIT}
+            handleCancel={handleCloseModal}
+          >
+            <EditItemContent
+              handleCancel={handleCloseModal}
+              item={selectedItem}
+              handleEditItem={(id, updatedItem) => {
+                handleEditItem(id, updatedItem);
+                setItems((prevItems) =>
+                  prevItems.map((item) =>
+                    item.id === id ? { ...item, ...updatedItem } : item
+                  )
+                );
+              }}
+            />
+          </StyledModal>
+        )}
+        {selectedItem && modalType === ModalType.DELETE && (
+          <DeleteItemModal
+            key="delete-modal"
+            open={modalType === ModalType.DELETE}
+            handleClose={handleCloseModal}
+            onDelete={handleDeleteSelectedItem}
+          />
+        )}
+      </div>
+    </div>
   );
 };
 

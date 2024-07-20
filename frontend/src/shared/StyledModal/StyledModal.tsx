@@ -5,14 +5,16 @@ import { StyledModalProps } from '../../types/StyledModalProps';
 import ModalAppBar from '../ModalAppBar/ModalAppBar';
 import './StyledModal.scss';
 
-const StyledModal: React.FC<StyledModalProps> = ({ open, handleCancel, children }) => {
+const StyledModal: React.FC<StyledModalProps> = ({
+  open,
+  handleCancel,
+  children,
+}) => {
   return (
     <Modal open={open} onClose={handleCancel}>
       <Box className="styled-modal-box">
         <ModalAppBar />
-        <Box className="styled-modal-content">
-          {children}
-        </Box>
+        <Box className="styled-modal-content">{children}</Box>
       </Box>
     </Modal>
   );

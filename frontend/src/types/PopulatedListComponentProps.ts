@@ -8,4 +8,5 @@ export interface PopulatedListComponentProps {
   setItems: React.Dispatch<React.SetStateAction<Item[]>>;
   handleOpenAdd: () => void;
   handleDeleteItem: (_: number) => void;
+  handleEditItem: (id: number, item: Partial<Item>) => void;
 }
