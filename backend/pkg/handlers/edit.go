@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"database/sql"
-	"fmt"
 	"net/http"
 	"shoppinglist-backend/pkg/models"
 	"strconv"
@@ -17,7 +16,7 @@ import (
 // @Produce  json
 // @Param id path int true "Item ID"
 // @Param item body models.Item true "Updated Item"
-// @Success 200 {object} models.SuccessResponse "Item updated successfully"
+// @Success 200 {object} models.Item "Item updated successfully"
 // @Failure 400 {object} models.ErrorResponse "Bad Request"
 // @Failure 404 {object} models.ErrorResponse "Item not found"
 // @Failure 500 {object} models.ErrorResponse "Internal Server Error"
@@ -31,7 +30,6 @@ func (h *Handler) EditItemHandler(c *gin.Context) {
 
 	var item models.Item
 	if err := c.ShouldBindJSON(&item); err != nil {
-		fmt.Println(item)
 		RespondWithError(c, http.StatusBadRequest, "Invalid request payload")
 		return
 	}
@@ -55,22 +53,13 @@ func (h *Handler) EditItemHandler(c *gin.Context) {
 		return
 	}
 
-	query := "UPDATE items SET name=$1, description=$2, quantity=$3, purchased=$4 WHERE id=$5"
-	result, err := h.DB.Exec(query, item.Name, item.Description, item.Quantity, item.Purchased, id)
+	query := "UPDATE items SET name=$1, description=$2, quantity=$3, purchased=$4 WHERE id=$5 RETURNING id, name, description, quantity, purchased, created_at"
+	var updatedItem models.Item
+	err = h.DB.QueryRow(query, item.Name, item.Description, item.Quantity, item.Purchased, id).Scan(&updatedItem.ID, &updatedItem.Name, &updatedItem.Description, &updatedItem.Quantity, &updatedItem.Purchased, &updatedItem.CreatedAt)
 	if err != nil {
 		RespondWithError(c, http.StatusInternalServerError, "Failed to update item")
 		return
 	}
 
-	rowsAffected, err := result.RowsAffected()
-	if err != nil {
-		RespondWithError(c, http.StatusInternalServerError, "Failed to retrieve update result")
-		return
-	}
-	if rowsAffected == 0 {
-		RespondWithError(c, http.StatusNotFound, "Item not found")
-		return
-	}
-
-	c.JSON(http.StatusOK, models.SuccessResponse{Message: "Item updated successfully"})
+	c.JSON(http.StatusOK, updatedItem)
 }

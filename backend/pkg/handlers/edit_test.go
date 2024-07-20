@@ -5,15 +5,25 @@ import (
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
+	"reflect"
 	"shoppinglist-backend/pkg/handlers"
 	"shoppinglist-backend/pkg/models"
 	"strings"
 	"testing"
+	"time"
 
 	"github.com/DATA-DOG/go-sqlmock"
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
 )
+
+// Utility function to compare items
+func compareItems(t *testing.T, expected, actual models.Item) {
+	t.Helper()
+	if !reflect.DeepEqual(expected, actual) {
+		t.Errorf("expected item: %v, got: %v", expected, actual)
+	}
+}
 
 func TestEditItemHandler(t *testing.T) {
 	gin.SetMode(gin.TestMode)
@@ -31,9 +41,10 @@ func TestEditItemHandler(t *testing.T) {
 			WillReturnRows(sqlmock.NewRows([]string{"id"}).AddRow(1))
 
 		// Mock the update operation
-		mock.ExpectExec("UPDATE items SET name=\\$1, description=\\$2, quantity=\\$3, purchased=\\$4 WHERE id=\\$5").
+		mock.ExpectQuery("UPDATE items SET name=\\$1, description=\\$2, quantity=\\$3, purchased=\\$4 WHERE id=\\$5 RETURNING id, name, description, quantity, purchased, created_at").
 			WithArgs("UpdatedItem", "UpdatedDescription", 2, true, 1).
-			WillReturnResult(sqlmock.NewResult(1, 1))
+			WillReturnRows(sqlmock.NewRows([]string{"id", "name", "description", "quantity", "purchased", "created_at"}).
+				AddRow(1, "UpdatedItem", "UpdatedDescription", 2, true, time.Now()))
 
 		h := handlers.NewHandler(db)
 		r.PUT("/shopping-list-api/v1/items/:id", h.EditItemHandler)
@@ -48,10 +59,21 @@ func TestEditItemHandler(t *testing.T) {
 		r.ServeHTTP(w, req)
 
 		assert.Equal(t, http.StatusOK, w.Code)
-		var successResponse models.SuccessResponse
-		err = json.Unmarshal(w.Body.Bytes(), &successResponse)
+
+		var updatedItem models.Item
+		err = json.Unmarshal(w.Body.Bytes(), &updatedItem)
 		assert.NoError(t, err)
-		assert.Equal(t, "Item updated successfully", successResponse.Message)
+
+		expectedItem := models.Item{
+			ID:          1,
+			Name:        "UpdatedItem",
+			Description: "UpdatedDescription",
+			Quantity:    2,
+			Purchased:   true,
+			CreatedAt:   updatedItem.CreatedAt, // Use the actual returned time
+		}
+
+		compareItems(t, expectedItem, updatedItem)
 	})
 
 	// Test case for invalid item ID

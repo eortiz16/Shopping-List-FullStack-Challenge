@@ -39,4 +39,4 @@ const EmptyListComponent: React.FC<EmptyListComponentProps> = ({
   );
 };
 
-export default EmptyListComponent;
+export default React.memo(EmptyListComponent);

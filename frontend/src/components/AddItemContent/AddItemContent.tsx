@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { TextField, MenuItem, Grid } from '@mui/material';
@@ -14,15 +14,15 @@ const AddItemContent: React.FC<AddItemContentProps> = ({
   const quantityOptions: number[] = [0, 1, 2, 3];
   const CHARACTER_LIMIT: number = 100;
 
-  const [itemName, setItemName] = React.useState<string>('');
-  const [description, setDescription] = React.useState<string>('');
-  const [quantity, setQuantity] = React.useState<number>(0);
+  const [itemName, setItemName] = useState<string>('');
+  const [description, setDescription] = useState<string>('');
+  const [quantity, setQuantity] = useState<number>(0);
 
-  const handleSubmit = () => {
+  const handleSubmit = useCallback(() => {
     if (itemName && description && quantity !== undefined) {
       handleAddItem({ name: itemName, description, quantity });
     }
-  };
+  }, [itemName, description, quantity, handleAddItem]);
 
   return (
     <Box className="add-modal-content">
@@ -88,4 +88,4 @@ const AddItemContent: React.FC<AddItemContentProps> = ({
   );
 };
 
-export default AddItemContent;
+export default React.memo(AddItemContent);

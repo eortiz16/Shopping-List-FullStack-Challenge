@@ -51,4 +51,4 @@ const ItemCard: React.FC<ItemCardProps> = ({
   );
 };
 
-export default ItemCard;
+export default React.memo(ItemCard);

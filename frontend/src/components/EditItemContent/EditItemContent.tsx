@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { EditItemContentProps } from '../../types/EditItemContentProps';
@@ -22,10 +22,10 @@ const EditItemContent: React.FC<EditItemContentProps> = ({
   const quantityOptions: number[] = [1, 2, 3];
   const CHARACTER_LIMIT: number = 100;
 
-  const [itemName, setItemName] = React.useState('');
-  const [description, setDescription] = React.useState('');
-  const [quantity, setQuantity] = React.useState<number | string>('');
-  const [checked, setChecked] = React.useState(false);
+  const [itemName, setItemName] = useState('');
+  const [description, setDescription] = useState('');
+  const [quantity, setQuantity] = useState<number | string>('');
+  const [checked, setChecked] = useState(false);
 
   useEffect(() => {
     if (item) {
@@ -36,7 +36,7 @@ const EditItemContent: React.FC<EditItemContentProps> = ({
     }
   }, [item]);
 
-  const handleSubmit = () => {
+  const handleSubmit = useCallback(() => {
     const updatedItem = {
       name: itemName,
       description,
@@ -46,7 +46,7 @@ const EditItemContent: React.FC<EditItemContentProps> = ({
 
     handleEditItem(item.id, updatedItem);
     handleCancel();
-  };
+  }, [itemName, description, quantity, checked, handleEditItem, handleCancel, item.id]);
 
   return (
     <Box className="edit-modal-content">
@@ -126,4 +126,4 @@ const EditItemContent: React.FC<EditItemContentProps> = ({
   );
 };
 
-export default EditItemContent;
+export default React.memo(EditItemContent);

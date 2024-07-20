@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
@@ -22,10 +22,10 @@ const DeleteItemModal: React.FC<DeleteItemModalProps> = ({
   handleClose,
   onDelete,
 }) => {
-  const handleDelete = () => {
+  const handleDelete = useCallback(() => {
     onDelete();
     handleClose();
-  };
+  }, [onDelete, handleClose]);
 
   return (
     <Modal open={open} onClose={handleClose}>
@@ -34,7 +34,7 @@ const DeleteItemModal: React.FC<DeleteItemModalProps> = ({
           Delete Item?
         </Typography>
         <Typography className="delete-modal-subtitle">
-          Are you sure you want to delete this item? This can not be undone.
+          Are you sure you want to delete this item? This cannot be undone.
         </Typography>
         <Box className="delete-modal-actions">
           <Button onClick={handleClose} className="delete-modal-actions-button">
@@ -54,4 +54,4 @@ const DeleteItemModal: React.FC<DeleteItemModalProps> = ({
   );
 };
 
-export default DeleteItemModal;
+export default React.memo(DeleteItemModal);

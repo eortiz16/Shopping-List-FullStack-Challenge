@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import ItemCard from '../ItemCard/ItemCard';
 import DeleteItemModal from '../DeleteItemModal/DeleteItemModal';
@@ -19,16 +19,16 @@ const PopulatedListComponent: React.FC<PopulatedListComponentProps> = ({
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
   const [modalType, setModalType] = useState<ModalType | null>(null);
 
-  const handleOpenModal = (type: ModalType) => {
+  const handleOpenModal = useCallback((type: ModalType) => {
     setModalType(type);
-  };
+  }, []);
 
-  const handleCloseModal = () => {
+  const handleCloseModal = useCallback(() => {
     setModalType(null);
     setSelectedItem(null);
-  };
+  }, []);
 
-  const handleTogglePurchased = (id: number) => {
+  const handleTogglePurchased = useCallback((id: number) => {
     const updatedItems = items.map((item) =>
       item.id === id ? { ...item, purchased: !item.purchased } : item
     );
@@ -38,24 +38,24 @@ const PopulatedListComponent: React.FC<PopulatedListComponentProps> = ({
     if (updatedItem) {
       handleEditItem(id, updatedItem);
     }
-  };
+  }, [items, setItems, handleEditItem]);
 
-  const handleOpenEdit = (item: Item) => {
+  const handleOpenEdit = useCallback((item: Item) => {
     setSelectedItem(item);
     handleOpenModal(ModalType.EDIT);
-  };
+  }, [handleOpenModal]);
 
-  const handleOpenDelete = (item: Item) => {
+  const handleOpenDelete = useCallback((item: Item) => {
     setSelectedItem(item);
     handleOpenModal(ModalType.DELETE);
-  };
+  }, [handleOpenModal]);
 
-  const handleDeleteSelectedItem = () => {
+  const handleDeleteSelectedItem = useCallback(() => {
     if (selectedItem) {
       handleDeleteItem(selectedItem.id);
       handleCloseModal();
     }
-  };
+  }, [selectedItem, handleDeleteItem, handleCloseModal]);
 
   return (
     <div className="parent-container">
@@ -113,4 +113,4 @@ const PopulatedListComponent: React.FC<PopulatedListComponentProps> = ({
   );
 };
 
-export default PopulatedListComponent;
+export default React.memo(PopulatedListComponent);
