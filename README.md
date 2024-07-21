@@ -22,6 +22,12 @@ Before you begin, ensure you have met the following requirements:
 - **Node.js and npm:** You will need Node.js and npm installed to work with the frontend.
 - **PostgreSQL:** Ensure you have a PostgreSQL database set up.
 
+## Notes on Secrets and Environment Files
+
+To facilitate the deployment process and ensure a seamless setup experience, all secrets and environment variables have been included in the provided .env files within this repository. This is intentional and not an oversight. It allows you to quickly get the application up and running after cloning the repository.
+
+Please ensure to secure these files appropriately if deploying in a production environment.
+
 ## Getting Started
 
 Follow these instructions to set up and run the project on your local machine.

@@ -6,13 +6,13 @@
 }
 
 .nav-bar {
-  flex-shrink: 0; // Ensure NavBar doesn't shrink and retains its height
+  flex-shrink: 0;
 }
 
 .content {
-  flex-grow: 1; // Allow the content to grow and fill the available space
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
-  overflow-y: auto; // Enable scrolling if content overflows
-  padding: 16px; // Add some padding for better appearance
+  overflow-y: auto;
+  padding: 16px;
 }

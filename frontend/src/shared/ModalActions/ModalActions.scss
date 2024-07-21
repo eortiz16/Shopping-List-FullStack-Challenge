@@ -1,14 +1,12 @@
 @import '../../styles/resources.scss';
 
-$modal-padding: 16px;
-$modal-gap: 16px;
 $modal-actions-padding: 8px;
 
 .modal-actions {
   display: flex;
   justify-content: flex-end;
-  gap: $modal-gap;
-  padding: $modal-padding;
+  gap: $gap-space;
+  padding: $padding-space;
   position: absolute;
   bottom: $modal-actions-padding;
   right: $modal-actions-padding;
@@ -19,6 +17,6 @@ $modal-actions-padding: 8px;
   }
 
   .modal-actions-button-cancel {
-    color: black;
+    color: $color-secondary-button-text;
   }
 }

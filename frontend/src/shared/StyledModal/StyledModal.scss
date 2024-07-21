@@ -2,16 +2,6 @@
 
 $modal-width: 560px;
 $modal-height: 768px;
-$modal-background-color: white;
-$modal-border-color: #1976d2;
-$modal-app-bar-background: #f9fafb;
-$modal-app-bar-border: lightgrey;
-$modal-padding: 16px;
-$modal-gap: 16px;
-$helper-text-color: grey;
-$helper-text-font-size: 12px;
-$modal-title-color: #5c5c5c;
-$modal-text-color: #4F4F4F;
 
 .styled-modal-box {
   position: absolute;
@@ -20,18 +10,18 @@ $modal-text-color: #4F4F4F;
   transform: translate(-50%, -50%);
   width: $modal-width;
   height: $modal-height;
-  background-color: $modal-background-color;
+  background-color: $color-background;
   box-shadow: none;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   border-bottom: 6px solid $accent-color;
-  border-radius: 0px; 
+  border-radius: 0px;
 }
 
 .styled-modal-content {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  padding: $modal-padding;
+  padding: $padding-space;
 }

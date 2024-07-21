@@ -12,7 +12,7 @@ import ModalActions from '../../shared/ModalActions/ModalActions';
 import { ModalType } from '../../types/ModalType';
 import { EditItemContentProps } from '../../types/EditItemContentProps';
 import { CHARACTER_LIMIT, quantityOptions } from '../../config/config';
-import './EditItemContent.scss';
+import '../../styles/modal-content.scss';
 
 /**
  * EditItemContent component provides a form for editing an existing item in the shopping list.
@@ -65,20 +65,20 @@ const EditItemContent: React.FC<EditItemContentProps> = ({
   ]);
 
   return (
-    <Box className="edit-modal-content">
+    <Box className="modal-content">
       <Grid container spacing={0.5}>
         <Grid item xs={12}>
-          <Typography variant="h6" className="edit-modal-title">
+          <Typography variant="h6" className="modal-title">
             Edit an Item
           </Typography>
         </Grid>
         <Grid item xs={12}>
-          <Typography className="edit-modal-subtitle">
+          <Typography className="modal-subtitle">
             Edit your item below
           </Typography>
         </Grid>
       </Grid>
-      <Box className="edit-modal-form-container">
+      <Box className="modal-form-container">
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <TextField
@@ -87,7 +87,7 @@ const EditItemContent: React.FC<EditItemContentProps> = ({
               variant="outlined"
               value={itemName}
               onChange={(e) => setItemName(e.target.value)}
-              className="edit-modal-textfield"
+              className="modal-textfield"
             />
           </Grid>
           <Grid item xs={12}>
@@ -102,9 +102,9 @@ const EditItemContent: React.FC<EditItemContentProps> = ({
               inputProps={{ maxLength: CHARACTER_LIMIT }}
               helperText={`${description.length}/${CHARACTER_LIMIT}`}
               FormHelperTextProps={{
-                className: 'edit-modal-helper-text',
+                className: 'modal-helper-text',
               }}
-              className="edit-modal-textfield"
+              className="modal-textfield"
             />
           </Grid>
           <Grid item xs={12}>
@@ -115,7 +115,7 @@ const EditItemContent: React.FC<EditItemContentProps> = ({
               select
               value={quantity}
               onChange={(e) => setQuantity(e.target.value)}
-              className="edit-modal-textfield"
+              className="modal-textfield"
             >
               {quantityOptions.map((option) => (
                 <MenuItem key={option} value={option}>

@@ -1,24 +1,19 @@
-@import "../../styles/resources.scss";
-
-$modal-app-bar-background: #f9fafb;
-$modal-app-bar-border: lightgrey;
-$modal-text-color: #4f4f4f;
-$font-family: 'Dosis', sans-serif !important;
+@import '../../styles/resources.scss';
 
 .modal-app-bar {
-  background-color: $modal-app-bar-background;
-  border-bottom: 1px solid $color-very-light-gray;
+  background-color: $color-background;
+  border-bottom: 1px solid $color-border-primary;
   display: flex;
   align-items: center;
 
   .modal-app-bar-text {
-    font-family: $font-family;
-    color: $modal-text-color !important;
+    font-family: $font-secondary !important;
+    color: $color-main-text !important;
     flex-grow: 1;
   }
 
   .modal-app-bar-icon {
-  align-items: center;
-  color: $modal-text-color !important;
+    align-items: center;
+    color: $color-main-text !important;
   }
 }

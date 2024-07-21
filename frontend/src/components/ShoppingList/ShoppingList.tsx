@@ -12,7 +12,6 @@ import {
   editItem,
 } from '../../services/itemService';
 import Loading from '../../shared/LoadingComponent/LoadingComponent';
-import './ShoppingList.scss';
 import ErrorComponent from '../../shared/ErrorComponent/ErrorComponent';
 
 /**

@@ -3,21 +3,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Dosis:wght@400;600&display=swap');
 
 // Define font-family variables
-$font-family-nunito: 'Nunito', sans-serif;
-$font-family-dosis: 'Dosis', sans-serif;
+$font-primary: 'Nunito', sans-serif;
+$font-secondary: 'Dosis', sans-serif;
 
-// Erick Defined colors
-$accent-color: #5084b4; // used for nav bar and bottom modal border color
-$color-very-light-gray: rgb(240, 240, 240);
-$color-light-gray: lightgray;
-$color-gray: #a9a9a9;
-$color-dark-gray: darkgray;
-$card-border-color: rgb(203, 221, 228);
-$title-color: black;
-$subtitle-color: rgb(90,90,90);
+// Defined colors
+$accent-color: #5084b4; // used for nav bar and bottom modal border color and check mark
+$color-secondary-button-text: black;
+$color-error: red;
+$color-background: #f9fafb;
+$color-main-text: black;
+$color-main-subtext: darkgray;
+$color-border-primary: rgb(240, 240, 240);
+$color-border-secondary: rgb(203, 221, 228);
+$color-checkbox-primary: lightgray;
+$color-input: #a9a9a9;
+$color-modal-subtitle: rgb(90, 90, 90);
+$color-background-purchased: #f8fafb;
 
-// Define color variables
-$primary-color: #1976d2;
-$secondary-color: #f9fafb;
-$text-color: darkgrey;
-$button-margin-top: 16px !important;
+// Spacing
+$gap-space: 16px;
+$padding-space: 16px;
+$margin-space: 16px;

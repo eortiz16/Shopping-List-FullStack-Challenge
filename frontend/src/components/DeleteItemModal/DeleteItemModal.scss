@@ -1,12 +1,8 @@
-@import "../../styles/resources.scss";
+@import '../../styles/resources.scss';
 
 $modal-width: 480px;
 $modal-height: auto;
-$modal-background-color: white;
-$modal-border-color: #1976d2;
 $modal-padding: 32px;
-$modal-gap: 16px;
-$modal-title-color: black;
 $button-primary-color: #1a73e8;
 
 .delete-modal-box {
@@ -15,7 +11,7 @@ $button-primary-color: #1a73e8;
   left: 50%;
   transform: translate(-50%, -50%);
   width: $modal-width;
-  background-color: $modal-background-color;
+  background-color: $color-background;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -24,19 +20,19 @@ $button-primary-color: #1a73e8;
   height: $modal-height;
 
   .delete-modal-title {
-    color: $modal-title-color;
+    color: $color-main-text;
     margin-bottom: 8px;
   }
 
   .delete-modal-subtitle {
-    color: $color-dark-gray;
+    color: $color-main-subtext;
     margin-bottom: 24px;
   }
 
   .delete-modal-actions {
     display: flex;
     justify-content: flex-end;
-    gap: $modal-gap;
+    gap: $gap-space;
 
     .delete-modal-actions-button {
       text-transform: none;

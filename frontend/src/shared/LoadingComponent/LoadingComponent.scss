@@ -5,8 +5,8 @@ $progress-dimensions: 10vh;
 .loading-container {
   display: flex;
   justify-content: center;
-  align-items: flex-start; // Align items to the start of the container
-  padding-top: 10vh; // Add padding to position the spinner 10% from the top
+  align-items: flex-start;
+  padding-top: 10vh;
 }
 
 .circular-progress {

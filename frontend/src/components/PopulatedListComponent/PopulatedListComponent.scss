@@ -1,21 +1,18 @@
 @import '../../styles/resources.scss';
 
-$text-color: darkgrey;
-$button-margin-top: 16px !important;
-
 .parent-container {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   height: 100vh;
-  padding: 16px;
+  padding: $padding-space;
   box-sizing: border-box;
 }
 
 .populated-list-container {
   width: 80%;
-  padding: 16px;
+  padding: $padding-space;
   box-sizing: border-box;
 
   .header {

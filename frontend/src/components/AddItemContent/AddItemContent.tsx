@@ -4,7 +4,7 @@ import { AddItemContentProps } from '../../types/AddItemContentProps';
 import ModalActions from '../../shared/ModalActions/ModalActions';
 import { ModalType } from '../../types/ModalType';
 import { CHARACTER_LIMIT, quantityOptions } from '../../config/config';
-import './AddItemContent.scss';
+import '../../styles/modal-content.scss';
 
 /**
  * AddItemContent component provides a form for adding a new item to the shopping list.
@@ -32,20 +32,20 @@ const AddItemContent: React.FC<AddItemContentProps> = ({
   }, [itemName, description, quantity, handleAddItem]);
 
   return (
-    <Box className="add-modal-content">
+    <Box className="modal-content">
       <Grid container spacing={0.5}>
         <Grid item xs={12}>
-          <Typography variant="h6" className="add-modal-title">
+          <Typography variant="h6" className="modal-title">
             Add an Item
           </Typography>
         </Grid>
         <Grid item xs={12}>
-          <Typography className="add-modal-subtitle">
+          <Typography className="modal-subtitle">
             Add your new item below
           </Typography>
         </Grid>
       </Grid>
-      <Box className="add-modal-form-container">
+      <Box className="modal-form-container">
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <TextField
@@ -54,7 +54,7 @@ const AddItemContent: React.FC<AddItemContentProps> = ({
               variant="outlined"
               value={itemName}
               onChange={(e) => setItemName(e.target.value)}
-              className="add-modal-textfield"
+              className="modal-textfield"
             />
           </Grid>
           <Grid item xs={12}>
@@ -69,9 +69,9 @@ const AddItemContent: React.FC<AddItemContentProps> = ({
               inputProps={{ maxLength: CHARACTER_LIMIT }}
               helperText={`${description.length}/${CHARACTER_LIMIT}`}
               FormHelperTextProps={{
-                className: 'add-modal-helper-text',
+                className: 'modal-helper-text',
               }}
-              className="add-modal-textfield"
+              className="modal-textfield"
             />
           </Grid>
           <Grid item xs={12}>
@@ -82,7 +82,7 @@ const AddItemContent: React.FC<AddItemContentProps> = ({
               select
               value={quantity}
               onChange={(e) => setQuantity(e.target.value)}
-              className="add-modal-textfield"
+              className="modal-textfield"
             >
               {quantityOptions.map((option) => (
                 <MenuItem key={option} value={option}>

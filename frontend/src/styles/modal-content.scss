@@ -1,4 +1,4 @@
-@import '../../styles/resources.scss';
+@import './resources.scss';
 
 $modal-padding: 8px;
 $modal-gap: 16px;
@@ -6,28 +6,29 @@ $helper-text-color: grey;
 $helper-text-font-size: 12px;
 $modal-title-color: #5c5c5c;
 $modal-text-color: #4f4f4f;
+$modal-form-margin: 8px;
 $modal-helper-text-position-vert: 8px;
 $modal-helper-text-position-hor: 2px;
 
-.add-modal-content {
+.modal-content {
   display: flex;
   flex-direction: column;
   padding: $modal-padding;
   flex-grow: 1;
 
-  .add-modal-title {
+  .modal-title {
     color: $modal-title-color;
   }
 
-  .add-modal-subtitle {
-    color: $subtitle-color;
+  .modal-subtitle {
+    color: $color-modal-subtitle;
   }
 
-  .add-modal-form-container {
+  .modal-form-container {
     margin-top: $modal-gap;
   }
 
-  .add-modal-helper-text {
+  .modal-helper-text {
     position: absolute;
     bottom: $modal-helper-text-position-vert;
     right: $modal-helper-text-position-hor;
@@ -36,22 +37,34 @@ $modal-helper-text-position-hor: 2px;
     text-align: right;
   }
 
-  .add-modal-textfield {
+  .custom-checkbox-label {
+    color: $color-main-subtext;
+  }
+
+  .custom-checkbox {
+    color: $color-checkbox-primary;
+
+    &.Mui-checked {
+      color: $accent-color;
+    }
+  }
+
+  .modal-textfield {
     .MuiOutlinedInput-root {
       .MuiOutlinedInput-notchedOutline,
       &:hover .MuiOutlinedInput-notchedOutline,
       &.Mui-focused .MuiOutlinedInput-notchedOutline {
-        border-color: $card-border-color !important;
+        border-color: $color-border-secondary !important;
       }
 
       .MuiInputBase-input {
-        color: $color-gray !important;
+        color: $color-input !important;
       }
     }
 
     .MuiFormLabel-root,
     .MuiFormLabel-root.Mui-focused {
-      color: $color-gray !important;
+      color: $color-input !important;
     }
   }
 }

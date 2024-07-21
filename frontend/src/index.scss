@@ -2,23 +2,23 @@
 
 /* Override Material-UI typography styles */
 .MuiTypography-root {
-  font-family: $font-family-nunito !important;
+  font-family: $font-primary !important;
 }
 
 /* Override Material-UI Button styles */
 .MuiButton-root {
-  font-family: $font-family-nunito !important;
+  font-family: $font-primary !important;
   text-transform: none !important;
 }
 
 .MuiInputBase-input {
-  font-family: $font-family-nunito !important;
+  font-family: $font-primary !important;
 }
 
 .MuiInputLabel-root {
-  font-family: $font-family-nunito !important;
+  font-family: $font-primary !important;
 }
 
 .MuiMenuItem-root {
-  font-family: $font-family-nunito !important;
+  font-family: $font-primary !important;
 }

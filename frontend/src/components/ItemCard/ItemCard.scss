@@ -1,34 +1,32 @@
-@import "../../styles/resources.scss";
-
-$background-color-purchased: #f8fafb;
+@import '../../styles/resources.scss';
 
 .item-card {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px;
-  border: 2px solid $color-very-light-gray !important;
+  padding: $padding-space;
+  border: 2px solid $color-border-primary !important;
   margin-bottom: 8px;
   border-radius: 4px;
 
   .custom-checkbox {
-    color: $color-light-gray; // Default color
+    color: $color-checkbox-primary; // Default color
     &.Mui-checked {
       color: $accent-color; // Color when checked
     }
   }
 
   .item-description {
-    color: rgb(90, 90, 90);
+    color: $color-modal-subtitle;
   }
 
   .item-card-text-container {
-    margin-left: 16px;
+    margin-left: $margin-space;
   }
 
   &.purchased {
-    background-color: $background-color-purchased;
-    border: 2px solid $background-color-purchased !important;
+    background-color: $color-background-purchased;
+    border: 2px solid $color-background-purchased !important;
 
     .item-name {
       color: $accent-color;
@@ -36,7 +34,7 @@ $background-color-purchased: #f8fafb;
     }
 
     .item-description {
-      color: $color-dark-gray;
+      color: $color-main-subtext;
       text-decoration: line-through;
     }
   }
