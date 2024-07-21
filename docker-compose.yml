@@ -1,13 +1,18 @@
 version: '3.8'
 
 services:
-  frontend:
+  db:
     build:
-      context: ./frontend
+      context: ./database
+    environment:
+      - POSTGRES_DB=shopping_list
+      - POSTGRES_USER=shopping_user
+      - POSTGRES_PASSWORD=password
     ports:
-      - "5000:5000"
-    depends_on:
-      - backend
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
 
   backend:
     build:
@@ -23,18 +28,12 @@ services:
       - DB_PASSWORD=password
       - DB_NAME=shopping_list
 
-  db:
+  frontend:
     build:
-      context: ./database
-    environment:
-      - POSTGRES_DB=shopping_list
-      - POSTGRES_USER=shopping_user
-      - POSTGRES_PASSWORD=password
+      context: ./frontend
     ports:
-      - "5432:5432"
-    volumes:
-      - db-data:/var/lib/postgresql/data
-      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
-
+      - "5001:5001"
+    depends_on:
+      - backend
 volumes:
   db-data:
