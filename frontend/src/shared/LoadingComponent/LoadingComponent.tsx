@@ -12,7 +12,7 @@ import './LoadingComponent.scss';
 const Loading: React.FC = () => {
   return (
     <Box className="loading-container" data-testid="loading-container">
-      <CircularProgress className="circular-progress" thickness={2}/>
+      <CircularProgress className="circular-progress" thickness={2} />
     </Box>
   );
 };

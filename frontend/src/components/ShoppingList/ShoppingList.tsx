@@ -13,6 +13,7 @@ import {
 } from '../../services/itemService';
 import Loading from '../../shared/LoadingComponent/LoadingComponent';
 import './ShoppingList.scss';
+import ErrorComponent from '../../shared/ErrorComponent/ErrorComponent';
 
 /**
  * ShoppingList component manages the overall shopping list.
@@ -81,7 +82,7 @@ const ShoppingList: React.FC = () => {
   );
 
   if (loading) return <Loading />;
-  if (error) return <div>Error: {error}</div>;
+  if (error) return <ErrorComponent errorMessage={error} />;
 
   return (
     <>

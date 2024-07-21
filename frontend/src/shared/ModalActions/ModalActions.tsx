@@ -24,7 +24,10 @@ const ModalActions: React.FC<ModalActionsProps> = ({
 
   return (
     <Box className="modal-actions">
-      <Button onClick={handleCancel} className="modal-actions-button modal-actions-button-cancel">
+      <Button
+        onClick={handleCancel}
+        className="modal-actions-button modal-actions-button-cancel"
+      >
         Cancel
       </Button>
       <Button

@@ -25,8 +25,9 @@ const AddItemContent: React.FC<AddItemContentProps> = ({
   const [quantity, setQuantity] = useState<string>('');
 
   const handleSubmit = useCallback(() => {
-    if (itemName && description && quantity !== '') {
-      handleAddItem({ name: itemName, description, quantity: Number(quantity) });
+    const quantityNumber = Number(quantity);
+    if (itemName && quantityNumber > 0) {
+      handleAddItem({ name: itemName, description, quantity: quantityNumber });
     }
   }, [itemName, description, quantity, handleAddItem]);
 
@@ -53,7 +54,7 @@ const AddItemContent: React.FC<AddItemContentProps> = ({
               variant="outlined"
               value={itemName}
               onChange={(e) => setItemName(e.target.value)}
-              className='add-modal-textfield'
+              className="add-modal-textfield"
             />
           </Grid>
           <Grid item xs={12}>
@@ -70,7 +71,7 @@ const AddItemContent: React.FC<AddItemContentProps> = ({
               FormHelperTextProps={{
                 className: 'add-modal-helper-text',
               }}
-              className='add-modal-textfield'
+              className="add-modal-textfield"
             />
           </Grid>
           <Grid item xs={12}>
@@ -81,7 +82,7 @@ const AddItemContent: React.FC<AddItemContentProps> = ({
               select
               value={quantity}
               onChange={(e) => setQuantity(e.target.value)}
-              className='add-modal-textfield'
+              className="add-modal-textfield"
             >
               {quantityOptions.map((option) => (
                 <MenuItem key={option} value={option}>

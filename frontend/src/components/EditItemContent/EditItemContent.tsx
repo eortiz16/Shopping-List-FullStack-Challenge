@@ -87,7 +87,7 @@ const EditItemContent: React.FC<EditItemContentProps> = ({
               variant="outlined"
               value={itemName}
               onChange={(e) => setItemName(e.target.value)}
-              className='edit-modal-textfield'
+              className="edit-modal-textfield"
             />
           </Grid>
           <Grid item xs={12}>
@@ -104,7 +104,7 @@ const EditItemContent: React.FC<EditItemContentProps> = ({
               FormHelperTextProps={{
                 className: 'edit-modal-helper-text',
               }}
-              className='edit-modal-textfield'
+              className="edit-modal-textfield"
             />
           </Grid>
           <Grid item xs={12}>
@@ -115,7 +115,7 @@ const EditItemContent: React.FC<EditItemContentProps> = ({
               select
               value={quantity}
               onChange={(e) => setQuantity(e.target.value)}
-              className='edit-modal-textfield'
+              className="edit-modal-textfield"
             >
               {quantityOptions.map((option) => (
                 <MenuItem key={option} value={option}>
@@ -132,10 +132,10 @@ const EditItemContent: React.FC<EditItemContentProps> = ({
                   onChange={(e) => setChecked(e.target.checked)}
                   name="checked"
                   color="primary"
-                  className='custom-checkbox'
+                  className="custom-checkbox"
                 />
               }
-              className='custom-checkbox-label'
+              className="custom-checkbox-label"
               label="Purchased"
             />
           </Grid>

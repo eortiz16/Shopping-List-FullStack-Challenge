@@ -1,0 +1,18 @@
+@import '../../styles/resources.scss';
+
+.error-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 10vh;
+  gap: 0.5rem; 
+}
+
+.error-icon {
+  font-size: 2rem;
+  color: red;
+}
+
+.error-message {
+  color: red;
+}

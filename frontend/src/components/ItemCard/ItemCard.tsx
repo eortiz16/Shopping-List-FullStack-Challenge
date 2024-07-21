@@ -24,7 +24,10 @@ const ItemCard: React.FC<ItemCardProps> = ({
   onDelete,
 }) => {
   return (
-    <Card className={`item-card ${item.purchased ? 'purchased' : ''}`} sx={{ boxShadow: 'none' }}>
+    <Card
+      className={`item-card ${item.purchased ? 'purchased' : ''}`}
+      sx={{ boxShadow: 'none' }}
+    >
       <Box display="flex" alignItems="center">
         <Checkbox
           checked={item.purchased}
