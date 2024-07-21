@@ -14,6 +14,13 @@ import {
 import Loading from '../../shared/LoadingComponent/LoadingComponent';
 import './ShoppingList.scss';
 
+/**
+ * ShoppingList component manages the overall shopping list.
+ * It fetches items from the server, handles loading and error states,
+ * and provides functionality to add, edit, and delete items.
+ *
+ * @returns {JSX.Element} The rendered shopping list component.
+ */
 const ShoppingList: React.FC = () => {
   const [items, setItems] = useState<Item[]>(shoppingListData);
   const [loading, setLoading] = useState(true);
@@ -37,15 +44,18 @@ const ShoppingList: React.FC = () => {
   const handleOpenAddModal = useCallback(() => setOpenAddModal(true), []);
   const handleCloseAddModal = useCallback(() => setOpenAddModal(false), []);
 
-  const handleAddItem = useCallback(async (item: Omit<Item, 'id' | 'purchased'>) => {
-    try {
-      const newItem = await addItem({ ...item, purchased: false });
-      setItems((prevItems) => [...prevItems, newItem]);
-      setOpenAddModal(false);
-    } catch (err) {
-      setError((err as Error).message);
-    }
-  }, []);
+  const handleAddItem = useCallback(
+    async (item: Omit<Item, 'id' | 'purchased'>) => {
+      try {
+        const newItem = await addItem({ ...item, purchased: false });
+        setItems((prevItems) => [...prevItems, newItem]);
+        setOpenAddModal(false);
+      } catch (err) {
+        setError((err as Error).message);
+      }
+    },
+    []
+  );
 
   const handleDeleteItem = useCallback(async (id: number) => {
     try {
@@ -56,16 +66,19 @@ const ShoppingList: React.FC = () => {
     }
   }, []);
 
-  const handleEditItem = useCallback(async (id: number, updatedItem: Partial<Item>) => {
-    try {
-      const savedItem = await editItem(id, updatedItem);
-      setItems((prevItems) =>
-        prevItems.map((item) => (item.id === id ? savedItem : item))
-      );
-    } catch (err) {
-      setError((err as Error).message);
-    }
-  }, []);
+  const handleEditItem = useCallback(
+    async (id: number, updatedItem: Partial<Item>) => {
+      try {
+        const savedItem = await editItem(id, updatedItem);
+        setItems((prevItems) =>
+          prevItems.map((item) => (item.id === id ? savedItem : item))
+        );
+      } catch (err) {
+        setError((err as Error).message);
+      }
+    },
+    []
+  );
 
   if (loading) return <Loading />;
   if (error) return <div>Error: {error}</div>;

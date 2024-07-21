@@ -12,7 +12,9 @@ import './ShoppingListPage.scss';
 const ShoppingListPage: React.FC = () => {
   return (
     <div className="shopping-list-page">
-      <NavBar />
+      <div className="nav-bar">
+        <NavBar />
+      </div>
       <div className="content">
         <ShoppingList />
       </div>

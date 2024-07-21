@@ -1,48 +1,57 @@
-$modal-width: 560px;
-$modal-height: 768px;
-$modal-background-color: white;
-$modal-border-color: #1976d2;
-$modal-app-bar-background: #f9fafb;
-$modal-app-bar-border: lightgrey;
-$font-family: 'Dosis', sans-serif !important;
+@import '../../styles/resources.scss';
+
 $modal-padding: 8px;
 $modal-gap: 16px;
 $helper-text-color: grey;
 $helper-text-font-size: 12px;
 $modal-title-color: #5c5c5c;
 $modal-text-color: #4f4f4f;
+$modal-helper-text-position-vert: 8px;
+$modal-helper-text-position-hor: 2px;
 
 .add-modal-content {
-  flex-grow: 1;
   display: flex;
   flex-direction: column;
   padding: $modal-padding;
-  margin-top: 8px;
+  flex-grow: 1;
 
   .add-modal-title {
     color: $modal-title-color;
-    font-family: $font-family;
   }
 
   .add-modal-subtitle {
-    margin-top: 8px;
-    margin-bottom: 8px;
-    color: $modal-text-color;
-    font-family: $font-family;
+    color: $subtitle-color;
+  }
+
+  .add-modal-form-container {
+    margin-top: $modal-gap;
   }
 
   .add-modal-helper-text {
     position: absolute;
-    bottom: 8px;
-    right: 8px;
+    bottom: $modal-helper-text-position-vert;
+    right: $modal-helper-text-position-hor;
     font-size: $helper-text-font-size;
     color: $helper-text-color;
     text-align: right;
-    font-family: $font-family;
   }
 
-  .add-modal-form {
-    margin-top: 8px;
-    margin-bottom: 8px;
+  .add-modal-textfield {
+    .MuiOutlinedInput-root {
+      .MuiOutlinedInput-notchedOutline,
+      &:hover .MuiOutlinedInput-notchedOutline,
+      &.Mui-focused .MuiOutlinedInput-notchedOutline {
+        border-color: $card-border-color !important;
+      }
+
+      .MuiInputBase-input {
+        color: $color-gray !important;
+      }
+    }
+
+    .MuiFormLabel-root,
+    .MuiFormLabel-root.Mui-focused {
+      color: $color-gray !important;
+    }
   }
 }

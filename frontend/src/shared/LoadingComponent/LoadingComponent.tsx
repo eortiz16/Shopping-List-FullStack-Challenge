@@ -1,7 +1,6 @@
 // Loading.tsx
 import React from 'react';
-import CircularProgress from '@mui/material/CircularProgress';
-import Box from '@mui/material/Box';
+import { Box, CircularProgress } from '@mui/material';
 import './LoadingComponent.scss';
 
 /**
@@ -13,7 +12,7 @@ import './LoadingComponent.scss';
 const Loading: React.FC = () => {
   return (
     <Box className="loading-container" data-testid="loading-container">
-      <CircularProgress className="circular-progress" />
+      <CircularProgress className="circular-progress" thickness={2}/>
     </Box>
   );
 };

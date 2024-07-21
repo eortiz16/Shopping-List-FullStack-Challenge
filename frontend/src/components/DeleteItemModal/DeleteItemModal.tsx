@@ -1,8 +1,5 @@
 import React, { useCallback } from 'react';
-import Box from '@mui/material/Box';
-import Modal from '@mui/material/Modal';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
+import {Box, Modal, Typography, Button} from '@mui/material';
 import { DeleteItemModalProps } from '../../types/DeleteItemModalProps';
 import './DeleteItemModal.scss';
 

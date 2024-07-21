@@ -1,37 +1,35 @@
+@import "../../styles/resources.scss";
+
 $modal-width: 480px;
 $modal-height: auto;
 $modal-background-color: white;
 $modal-border-color: #1976d2;
-$modal-padding: 16px;
+$modal-padding: 32px;
 $modal-gap: 16px;
-$modal-title-color: #5c5c5c;
-$modal-subtitle-color: #757575;
+$modal-title-color: black;
 $button-primary-color: #1a73e8;
 
 .delete-modal-box {
   position: absolute;
-  top: 50%;
+  top: 30%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: $modal-width;
   background-color: $modal-background-color;
-  box-shadow: none;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: $modal-padding;
-  border-radius: 0px;
+  border-radius: 4px;
   height: $modal-height;
 
   .delete-modal-title {
     color: $modal-title-color;
-    font-family: 'Nunito', sans-serif;
     margin-bottom: 8px;
   }
 
   .delete-modal-subtitle {
-    color: $modal-subtitle-color;
-    font-family: 'Nunito', sans-serif;
+    color: $color-dark-gray;
     margin-bottom: 24px;
   }
 
@@ -41,8 +39,8 @@ $button-primary-color: #1a73e8;
     gap: $modal-gap;
 
     .delete-modal-actions-button {
-      font-family: 'Nunito', sans-serif;
       text-transform: none;
+      color: black;
     }
 
     .delete-modal-actions-button:last-of-type {

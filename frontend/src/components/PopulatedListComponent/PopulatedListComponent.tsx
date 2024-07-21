@@ -1,14 +1,27 @@
 import React, { useState, useCallback } from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import ItemCard from '../ItemCard/ItemCard';
-import DeleteItemModal from '../DeleteItemModal/DeleteItemModal';
 import { Item } from '../../types/Item';
 import { PopulatedListComponentProps } from '../../types/PopulatedListComponentProps';
 import { ModalType } from '../../types/ModalType';
-import './PopulatedListComponent.scss';
 import StyledModal from '../../shared/StyledModal/StyledModal';
 import EditItemContent from '../EditItemContent/EditItemContent';
+import DeleteItemModal from '../DeleteItemModal/DeleteItemModal';
+import './PopulatedListComponent.scss';
 
+/**
+ * PopulatedListComponent component manages and displays the list of items in the shopping list.
+ * It allows users to add, edit, delete, and toggle the purchased status of items.
+ *
+ * @param {Object} props - The props object.
+ * @param {Array} props.items - The array of items in the shopping list.
+ * @param {Function} props.setItems - The function to update the items in the list.
+ * @param {Function} props.handleOpenAdd - The function to open the add item modal.
+ * @param {Function} props.handleDeleteItem - The function to delete an item from the list.
+ * @param {Function} props.handleEditItem - The function to edit an item in the list.
+ *
+ * @returns {JSX.Element} The rendered populated list component.
+ */
 const PopulatedListComponent: React.FC<PopulatedListComponentProps> = ({
   items,
   setItems,
@@ -28,27 +41,36 @@ const PopulatedListComponent: React.FC<PopulatedListComponentProps> = ({
     setSelectedItem(null);
   }, []);
 
-  const handleTogglePurchased = useCallback((id: number) => {
-    const updatedItems = items.map((item) =>
-      item.id === id ? { ...item, purchased: !item.purchased } : item
-    );
-    setItems(updatedItems);
+  const handleTogglePurchased = useCallback(
+    (id: number) => {
+      const updatedItems = items.map((item) =>
+        item.id === id ? { ...item, purchased: !item.purchased } : item
+      );
+      setItems(updatedItems);
 
-    const updatedItem = updatedItems.find((item) => item.id === id);
-    if (updatedItem) {
-      handleEditItem(id, updatedItem);
-    }
-  }, [items, setItems, handleEditItem]);
+      const updatedItem = updatedItems.find((item) => item.id === id);
+      if (updatedItem) {
+        handleEditItem(id, updatedItem);
+      }
+    },
+    [items, setItems, handleEditItem]
+  );
 
-  const handleOpenEdit = useCallback((item: Item) => {
-    setSelectedItem(item);
-    handleOpenModal(ModalType.EDIT);
-  }, [handleOpenModal]);
+  const handleOpenEdit = useCallback(
+    (item: Item) => {
+      setSelectedItem(item);
+      handleOpenModal(ModalType.EDIT);
+    },
+    [handleOpenModal]
+  );
 
-  const handleOpenDelete = useCallback((item: Item) => {
-    setSelectedItem(item);
-    handleOpenModal(ModalType.DELETE);
-  }, [handleOpenModal]);
+  const handleOpenDelete = useCallback(
+    (item: Item) => {
+      setSelectedItem(item);
+      handleOpenModal(ModalType.DELETE);
+    },
+    [handleOpenModal]
+  );
 
   const handleDeleteSelectedItem = useCallback(() => {
     if (selectedItem) {
@@ -61,7 +83,7 @@ const PopulatedListComponent: React.FC<PopulatedListComponentProps> = ({
     <div className="parent-container">
       <div className="populated-list-container">
         <Box className="header">
-          <Typography variant="h5" component="div">
+          <Typography variant="h6" className="header-title">
             Your Items
           </Typography>
           <Button variant="contained" onClick={handleOpenAdd}>

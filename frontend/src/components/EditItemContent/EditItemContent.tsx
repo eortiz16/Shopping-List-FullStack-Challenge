@@ -1,27 +1,35 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import { EditItemContentProps } from '../../types/EditItemContentProps';
 import {
   TextField,
   MenuItem,
   Checkbox,
   FormControlLabel,
   Grid,
+  Typography,
+  Box,
 } from '@mui/material';
 import ModalActions from '../../shared/ModalActions/ModalActions';
 import { ModalType } from '../../types/ModalType';
+import { EditItemContentProps } from '../../types/EditItemContentProps';
+import { CHARACTER_LIMIT, quantityOptions } from '../../config/config';
 import './EditItemContent.scss';
 
+/**
+ * EditItemContent component provides a form for editing an existing item in the shopping list.
+ * It includes fields for the item name, description, quantity, and a checkbox for purchase status.
+ *
+ * @param {Object} props - The props object.
+ * @param {Function} props.handleCancel - The function to cancel the edit item action.
+ * @param {Function} props.handleEditItem - The function to edit the item in the list.
+ * @param {Object} props.item - The item object containing the current item details.
+ *
+ * @returns {JSX.Element} The rendered edit item content component.
+ */
 const EditItemContent: React.FC<EditItemContentProps> = ({
   handleCancel,
   handleEditItem,
   item,
 }) => {
-  // Predefined array for quantity options
-  const quantityOptions: number[] = [1, 2, 3];
-  const CHARACTER_LIMIT: number = 100;
-
   const [itemName, setItemName] = useState('');
   const [description, setDescription] = useState('');
   const [quantity, setQuantity] = useState<number | string>('');
@@ -46,17 +54,31 @@ const EditItemContent: React.FC<EditItemContentProps> = ({
 
     handleEditItem(item.id, updatedItem);
     handleCancel();
-  }, [itemName, description, quantity, checked, handleEditItem, handleCancel, item.id]);
+  }, [
+    itemName,
+    description,
+    quantity,
+    checked,
+    handleEditItem,
+    handleCancel,
+    item.id,
+  ]);
 
   return (
     <Box className="edit-modal-content">
-      <Typography variant="h6" className="edit-modal-title">
-        Edit Item
-      </Typography>
-      <Typography className="edit-modal-subtitle">
-        Modify your item below
-      </Typography>
-      <Box className="edit-modal-form">
+      <Grid container spacing={0.5}>
+        <Grid item xs={12}>
+          <Typography variant="h6" className="edit-modal-title">
+            Edit an Item
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <Typography className="edit-modal-subtitle">
+            Edit your item below
+          </Typography>
+        </Grid>
+      </Grid>
+      <Box className="edit-modal-form-container">
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <TextField
@@ -65,6 +87,7 @@ const EditItemContent: React.FC<EditItemContentProps> = ({
               variant="outlined"
               value={itemName}
               onChange={(e) => setItemName(e.target.value)}
+              className='edit-modal-textfield'
             />
           </Grid>
           <Grid item xs={12}>
@@ -81,6 +104,7 @@ const EditItemContent: React.FC<EditItemContentProps> = ({
               FormHelperTextProps={{
                 className: 'edit-modal-helper-text',
               }}
+              className='edit-modal-textfield'
             />
           </Grid>
           <Grid item xs={12}>
@@ -91,6 +115,7 @@ const EditItemContent: React.FC<EditItemContentProps> = ({
               select
               value={quantity}
               onChange={(e) => setQuantity(e.target.value)}
+              className='edit-modal-textfield'
             >
               {quantityOptions.map((option) => (
                 <MenuItem key={option} value={option}>
@@ -107,14 +132,15 @@ const EditItemContent: React.FC<EditItemContentProps> = ({
                   onChange={(e) => setChecked(e.target.checked)}
                   name="checked"
                   color="primary"
+                  className='custom-checkbox'
                 />
               }
-              label="Purchase"
+              className='custom-checkbox-label'
+              label="Purchased"
             />
           </Grid>
         </Grid>
       </Box>
-
       <Box>
         <ModalActions
           handleCancel={handleCancel}

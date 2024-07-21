@@ -1,7 +1,9 @@
-.dosis-font {
-  font-family: 'Dosis', sans-serif !important;
+@import '../../styles/resources.scss';
+
+.navbar {
+  background-color: $accent-color !important;
 }
 
-.custom-app-bar {
-  background-color: #5084b4 !important;
+.navbar .MuiTypography-root.navbar-title {
+  font-family: $font-family-dosis !important;
 }

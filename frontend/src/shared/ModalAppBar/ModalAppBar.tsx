@@ -19,8 +19,8 @@ const ModalAppBar: React.FC = () => {
         <Typography variant="h6" className="modal-app-bar-text">
           {TITLE}
         </Typography>
-        <Box className="modal-app-bar-button">
-          <div className="material-icons">skip_next</div>
+        <Box className="modal-app-bar-icon">
+          <div className="material-icons-outlined">skip_next</div>
         </Box>
       </Toolbar>
     </AppBar>

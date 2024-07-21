@@ -1,12 +1,16 @@
+@import '../../styles/resources.scss';
+
+$progress-dimensions: 10vh;
+
 .loading-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  
-  .circular-progress {
-    width: 80px !important;
-    height: 80px !important;
-  }
-  
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; // Align items to the start of the container
+  padding-top: 10vh; // Add padding to position the spinner 10% from the top
+}
+
+.circular-progress {
+  color: $accent-color;
+  width: $progress-dimensions !important;
+  height: $progress-dimensions !important;
+}

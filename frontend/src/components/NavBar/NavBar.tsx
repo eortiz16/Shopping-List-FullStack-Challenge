@@ -11,13 +11,13 @@ import './NavBar.scss';
 const NavBar: React.FC = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" className="custom-app-bar">
+      <AppBar position="static" className="navbar">
         <Toolbar>
           <Typography
             variant="h6"
             component="div"
             sx={{ flexGrow: 1 }}
-            className="dosis-font"
+            className="navbar-title"
           >
             SHOPPING LIST
           </Typography>

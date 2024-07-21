@@ -1,12 +1,16 @@
-$font-family: 'Nunito', sans-serif !important;
+@import '../../styles/resources.scss';
+
 $text-color: darkgrey;
 $button-margin-top: 16px !important;
 
 .empty-list-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1;
+  flex-direction: column; // Arrange children vertically
+  justify-content: flex-start; // Align items at the start
+  align-items: center; // Center items horizontally
+  box-sizing: border-box;
+  height: 100%;
+  padding-top: 10vh; // Push the card down by 33% of the viewport height
 
   .empty-list-card {
     width: 614px;
@@ -19,15 +23,14 @@ $button-margin-top: 16px !important;
     border: 1px solid lightgrey;
 
     .empty-list-text {
-      font-family: $font-family;
       color: $text-color;
       text-transform: none !important;
     }
 
     .empty-list-button {
-      font-family: $font-family;
       margin-top: $button-margin-top;
       text-transform: none !important;
+      background-color: #3173e0 !important;
     }
   }
 }

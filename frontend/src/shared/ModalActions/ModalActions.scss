@@ -1,4 +1,5 @@
-$font-family: 'Dosis', sans-serif !important;
+@import '../../styles/resources.scss';
+
 $modal-padding: 16px;
 $modal-gap: 16px;
 $modal-actions-padding: 8px;
@@ -15,6 +16,9 @@ $modal-actions-padding: 8px;
 
   .modal-actions-button {
     text-transform: none;
-    font-family: $font-family;
+  }
+
+  .modal-actions-button-cancel {
+    color: black;
   }
 }

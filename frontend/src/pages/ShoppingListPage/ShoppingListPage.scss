@@ -1,10 +1,18 @@
 .shopping-list-page {
   height: 100vh;
+  width: 100vw;
   display: flex;
   flex-direction: column;
 }
 
+.nav-bar {
+  flex-shrink: 0; // Ensure NavBar doesn't shrink and retains its height
+}
+
 .content {
-  flex-grow: 1;
-  align-items: center;
+  flex-grow: 1; // Allow the content to grow and fill the available space
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto; // Enable scrolling if content overflows
+  padding: 16px; // Add some padding for better appearance
 }

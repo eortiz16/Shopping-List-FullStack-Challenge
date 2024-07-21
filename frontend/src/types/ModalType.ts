@@ -1,5 +1,5 @@
 /**
- * Enum for the differnet Modal Types
+ * Enum for the different Modal Types
  */
 export enum ModalType {
   ADD = 'add',

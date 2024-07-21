@@ -24,27 +24,28 @@ const ItemCard: React.FC<ItemCardProps> = ({
   onDelete,
 }) => {
   return (
-    <Card className={`item-card ${item.purchased ? 'purchased' : ''}`}>
+    <Card className={`item-card ${item.purchased ? 'purchased' : ''}`} sx={{ boxShadow: 'none' }}>
       <Box display="flex" alignItems="center">
         <Checkbox
           checked={item.purchased}
           onChange={() => onTogglePurchased(item.id)}
+          classes={{ root: 'custom-checkbox' }}
         />
-        <Box ml={2}>
-          <Typography variant="h6" component="div">
+        <Box className="item-card-text-container">
+          <Typography variant="h6" className="item-name">
             {item.name}
           </Typography>
-          <Typography variant="body2" className="item-description">
+          <Typography variant="body1" className="item-description">
             {item.description}
           </Typography>
         </Box>
       </Box>
       <Box>
         <IconButton onClick={onEdit}>
-          <div className="material-icons">edit</div>
+          <div className="material-icons-outlined">edit</div>
         </IconButton>
         <IconButton onClick={onDelete}>
-          <div className="material-icons">delete</div>
+          <div className="material-icons-outlined">delete</div>
         </IconButton>
       </Box>
     </Card>

@@ -1,38 +1,50 @@
 import React, { useState, useCallback } from 'react';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import { TextField, MenuItem, Grid } from '@mui/material';
+import { TextField, MenuItem, Grid, Box, Typography } from '@mui/material';
 import { AddItemContentProps } from '../../types/AddItemContentProps';
 import ModalActions from '../../shared/ModalActions/ModalActions';
-import './AddItemContent.scss';
 import { ModalType } from '../../types/ModalType';
+import { CHARACTER_LIMIT, quantityOptions } from '../../config/config';
+import './AddItemContent.scss';
 
+/**
+ * AddItemContent component provides a form for adding a new item to the shopping list.
+ * It includes fields for the item name, description, and quantity.
+ *
+ * @param {Object} props - The props object.
+ * @param {Function} props.handleAddItem - The function to add the item to the list.
+ * @param {Function} props.handleCancel - The function to cancel the add item action.
+ *
+ * @returns {JSX.Element} The rendered add item content component.
+ */
 const AddItemContent: React.FC<AddItemContentProps> = ({
   handleAddItem,
   handleCancel,
 }) => {
-  const quantityOptions: number[] = [0, 1, 2, 3];
-  const CHARACTER_LIMIT: number = 100;
-
   const [itemName, setItemName] = useState<string>('');
   const [description, setDescription] = useState<string>('');
-  const [quantity, setQuantity] = useState<number>(0);
+  const [quantity, setQuantity] = useState<string>('');
 
   const handleSubmit = useCallback(() => {
-    if (itemName && description && quantity !== undefined) {
-      handleAddItem({ name: itemName, description, quantity });
+    if (itemName && description && quantity !== '') {
+      handleAddItem({ name: itemName, description, quantity: Number(quantity) });
     }
   }, [itemName, description, quantity, handleAddItem]);
 
   return (
     <Box className="add-modal-content">
-      <Typography variant="h6" className="add-modal-title">
-        Add an Item
-      </Typography>
-      <Typography className="add-modal-subtitle">
-        Add your new item below
-      </Typography>
-      <Box>
+      <Grid container spacing={0.5}>
+        <Grid item xs={12}>
+          <Typography variant="h6" className="add-modal-title">
+            Add an Item
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <Typography className="add-modal-subtitle">
+            Add your new item below
+          </Typography>
+        </Grid>
+      </Grid>
+      <Box className="add-modal-form-container">
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <TextField
@@ -41,6 +53,7 @@ const AddItemContent: React.FC<AddItemContentProps> = ({
               variant="outlined"
               value={itemName}
               onChange={(e) => setItemName(e.target.value)}
+              className='add-modal-textfield'
             />
           </Grid>
           <Grid item xs={12}>
@@ -57,6 +70,7 @@ const AddItemContent: React.FC<AddItemContentProps> = ({
               FormHelperTextProps={{
                 className: 'add-modal-helper-text',
               }}
+              className='add-modal-textfield'
             />
           </Grid>
           <Grid item xs={12}>
@@ -66,7 +80,8 @@ const AddItemContent: React.FC<AddItemContentProps> = ({
               variant="outlined"
               select
               value={quantity}
-              onChange={(e) => setQuantity(Number(e.target.value))}
+              onChange={(e) => setQuantity(e.target.value)}
+              className='add-modal-textfield'
             >
               {quantityOptions.map((option) => (
                 <MenuItem key={option} value={option}>
