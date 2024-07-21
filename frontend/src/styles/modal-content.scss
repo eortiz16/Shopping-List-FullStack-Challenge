@@ -17,7 +17,7 @@ $modal-helper-text-position-hor: 2px;
   flex-grow: 1;
 
   .modal-title {
-    color: $modal-title-color;
+    color: $color-main-text;
   }
 
   .modal-subtitle {
@@ -54,17 +54,17 @@ $modal-helper-text-position-hor: 2px;
       .MuiOutlinedInput-notchedOutline,
       &:hover .MuiOutlinedInput-notchedOutline,
       &.Mui-focused .MuiOutlinedInput-notchedOutline {
-        border-color: $color-border-secondary !important;
+        border-color: $color-main-subtext !important;
       }
 
       .MuiInputBase-input {
-        color: $color-input !important;
+        color: $color-main-subtext !important;
       }
     }
 
     .MuiFormLabel-root,
     .MuiFormLabel-root.Mui-focused {
-      color: $color-input !important;
+      color: $color-main-subtext !important;
     }
   }
 }

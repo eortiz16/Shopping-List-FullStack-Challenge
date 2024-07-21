@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { Box, Modal, Typography, Button } from '@mui/material';
+import { Box, Modal, Typography, Button, Grid } from '@mui/material';
 import { DeleteItemModalProps } from '../../types/DeleteItemModalProps';
 import './DeleteItemModal.scss';
 
@@ -27,12 +27,19 @@ const DeleteItemModal: React.FC<DeleteItemModalProps> = ({
   return (
     <Modal open={open} onClose={handleClose}>
       <Box className="delete-modal-box">
-        <Typography variant="h6" className="delete-modal-title">
-          Delete Item?
-        </Typography>
-        <Typography className="delete-modal-subtitle">
-          Are you sure you want to delete this item? This cannot be undone.
-        </Typography>
+        <Grid container spacing={1}>
+          <Grid item xs={12}>
+            <Typography variant="h6" className="delete-modal-title">
+              Delete Item?
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography className="delete-modal-subtitle">
+              Are you sure you want to delete this item? This cannot be undone.
+            </Typography>
+          </Grid>
+        </Grid>
+
         <Box className="delete-modal-actions">
           <Button onClick={handleClose} className="delete-modal-actions-button">
             Cancel
