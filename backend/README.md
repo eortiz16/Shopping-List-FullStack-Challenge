@@ -1,104 +1,152 @@
 # Shopping List FullStack Challenge - Backend
 
-## Database Schema
+## Introduction
 
-1. Users Table - This table will store user information.
-```
-id: Primary key, unique identifier for each user.
-username: Unique username for the user.
-email: Unique email for the user.
-password: Hashed password for authentication.
-created_at: Timestamp of when the user was created.
-```
+This project is the backend for the Shopping List App. It provides a set of RESTful API endpoints for managing a shopping list, including operations to get all items, add an item, edit an item, and delete an item. The backend is built using the Gin web framework, connects to a PostgreSQL database, and includes Swagger documentation for easy API exploration and testing.
 
-2. Lists Table - This table will store shopping lists, each associated with a user.
-```
-id: Primary key, unique identifier for each list.
-user_id: Foreign key referencing the users table.
-name: Name of the shopping list.
-created_at: Timestamp of when the list was created.
-```
+## Purpose
 
-3. Items Table - This table will store items within a shopping list.
-```
-id: Primary key, unique identifier for each item.
-list_id: Foreign key referencing the lists table.
-name: Name of the item.
-description: Description of the item, up to 100 characters.
-quantity: Quantity of the item.
-purchased: Boolean indicating if the item has been purchased.
-created_at: Timestamp of when the item was created.
-```
+The purpose of this backend is to offer a robust and efficient way to manage shopping list items through a set of well-defined API endpoints. It includes support for Cross-Origin Resource Sharing (CORS) to allow connections from local development environments, and Swagger documentation for interactive API exploration.
 
-## Explanation
+## API Endpoints
 
-1. Users Table:
+### Base URL
 
-Each user has a unique username and email.
-The password will be stored as a hashed string for security.
-created_at records the timestamp of user creation.
+- **Host:** `localhost:8080`
+- **Base Path:** `/shopping-list-api/v1`
 
-2. Lists Table:
+### Endpoints
 
-Each list is associated with a specific user through the user_id foreign key.
-The ON DELETE CASCADE ensures that if a user is deleted, all their lists are also deleted.
-name allows for user-defined names for each list.
+- **Get All Items**
+  - **Method:** `GET`
+  - **Path:** `/shopping-list-api/v1/items`
+  - **Description:** Retrieves all items from the shopping list.
+  - **Handler:** `ItemsHandler`
 
-3. Items Table:
+- **Add an Item**
+  - **Method:** `POST`
+  - **Path:** `/shopping-list-api/v1/items`
+  - **Description:** Adds a new item to the shopping list.
+  - **Handler:** `AddItemHandler`
 
-Each item is associated with a specific list through the list_id foreign key.
-description is limited to 100 characters as specified.
-quantity must be a positive integer.
-purchased is a boolean that defaults to FALSE, indicating the item hasn't been purchased yet.
-created_at records the timestamp of item creation.
+- **Edit an Item**
+  - **Method:** `PUT`
+  - **Path:** `/shopping-list-api/v1/items/:id`
+  - **Description:** Edits an existing item in the shopping list.
+  - **Handler:** `EditItemHandler`
 
-## SQL Schema Definition
+- **Delete an Item**
+  - **Method:** `DELETE`
+  - **Path:** `/shopping-list-api/v1/items/:id`
+  - **Description:** Deletes an item from the shopping list.
+  - **Handler:** `DeleteItemHandler`
 
-```
--- users table
-CREATE TABLE users (
-    id SERIAL PRIMARY KEY,
-    username VARCHAR(50) UNIQUE NOT NULL,
-    email VARCHAR(100) UNIQUE NOT NULL,
-    password VARCHAR(100) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+### CORS Configuration
 
--- lists table
-CREATE TABLE lists (
-    id SERIAL PRIMARY KEY,
-    user_id INT REFERENCES users(id) ON DELETE CASCADE,
-    name VARCHAR(100) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+This API uses CORS rules to allow connections from the following origins:
 
--- items table
-CREATE TABLE items (
-    id SERIAL PRIMARY KEY,
-    list_id INT REFERENCES lists(id) ON DELETE CASCADE,
-    name VARCHAR(100) NOT NULL,
-    description VARCHAR(100),
-    quantity INT CHECK (quantity > 0),
-    purchased BOOLEAN DEFAULT FALSE,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-```
+- `http://localhost:3000`
+- `http://localhost:5001`
 
-## What I have now
+### Swagger Documentation
 
-```
-CREATE TABLE items (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    description VARCHAR(100),
-    quantity INT CHECK (quantity > 0),
-    purchased BOOLEAN DEFAULT FALSE,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-```
+Swagger documentation is available to explore and test the API endpoints interactively. You can access the Swagger UI at the following URL:
+
+- **Swagger URL:** [http://localhost:8080/swagger/index.html](http://localhost:8080/swagger/index.html)
+
+## Running Tests
+
+To ensure the functionality and reliability of the API, we have implemented unit tests. Follow these steps to run the tests:
+
+1. **Install Test Dependencies:**
+   Make sure all test dependencies are installed by running:
+
+   ```sh
+   go mod tidy
+   ```
+
+2. **Run Tests:**
+   Execute the following command to run all tests:
+
+   ```sh
+   go test ./...
+   ```
+
+3. **Run Coverage Tests:**
+   Execute the following command to run all tests:
+
+   ```sh
+   go test ./...
+   ```
+
+The tests cover various aspects of the API, including handler functions and database interactions.
+
+## Compiling the Go Code
+
+To compile the Go code and run the Shopping List API, follow these steps:
+
+1. **Run the Application:**
+   Use the following command to compile and run the application:
+
+   ```sh
+   go run cmd/shoppinglist-api/main.go
+   ```
+
+1. **Or Compile the Application:**
+   Use the following command to compile and run the application:
+
+   ```sh
+   go build cmd/shoppinglist-api/main.go
+   ./main.go
+   ```
+
+The API will start and be accessible at `http://localhost:8080`.
+
+Ensure that your PostgreSQL database is set up and the necessary environment variables are configured before running the application.
 
 ## Dependencies
 
-1. gorilla/mux: A powerful URL router and dispatcher for Go.
-2. lib/pq: A pure Go PostgreSQL driver.
-3. GORM: is a powerful ORM library for Go that simplifies database interactions.
+This project uses the following dependencies to support various functionalities:
+
+### HTTP Framework and Middleware
+
+- **[github.com/gin-gonic/gin](https://github.com/gin-gonic/gin)**
+  - **Purpose:** A high-performance HTTP web framework for Go. Gin is known for its speed, low memory footprint, and efficient handling of HTTP requests, making it a popular choice for building APIs.
+  
+- **[github.com/gin-contrib/cors](https://github.com/gin-contrib/cors)**
+  - **Purpose:** A middleware for handling Cross-Origin Resource Sharing (CORS) in the Gin framework. It enables configuring CORS policies to control access to your API from different origins.
+
+### Database Interaction
+
+- **[github.com/lib/pq](https://github.com/lib/pq)**
+  - **Purpose:** A pure Go Postgres driver for the database/sql package. It provides an interface to interact with PostgreSQL databases, enabling CRUD operations and more advanced database interactions.
+
+### Environment Management
+
+- **[github.com/joho/godotenv](https://github.com/joho/godotenv)**
+  - **Purpose:** A library for loading environment variables from a `.env` file into your application. This helps in managing configuration settings for different environments (development, testing, production) without hardcoding them into the application code.
+
+### Testing
+
+- **[github.com/stretchr/testify](https://github.com/stretchr/testify)**
+  - **Purpose:** A comprehensive toolkit for writing unit tests in Go. It includes utilities for assertions, mocking, and testing HTTP requests, making it easier to write and manage tests.
+  
+- **[github.com/DATA-DOG/go-sqlmock](https://github.com/DATA-DOG/go-sqlmock)**
+  - **Purpose:** A mock library for SQL driver interfaces. It allows for testing SQL database interactions without requiring a real database, making it easier to write unit tests for code that interacts with databases.
+
+### API Documentation
+
+- **[github.com/swaggo/swag](https://github.com/swaggo/swag)**
+  - **Purpose:** A library that helps in generating Swagger documentation from your Go annotations. It streamlines the process of creating and maintaining API documentation by generating it from comments in your code.
+
+- **[github.com/swaggo/gin-swagger](https://github.com/swaggo/gin-swagger)**
+  - **Purpose:** A Gin middleware to automatically generate and serve Swagger documentation for your API. It helps in keeping your API documentation up-to-date and accessible.
+
+- **[github.com/swaggo/files](https://github.com/swaggo/files)**
+  - **Purpose:** A package for serving Swagger UI files. It is used in conjunction with `gin-swagger` to provide interactive API documentation.
+
+## Authors
+
+- **Erick Ortiz**
+  - **Role:** Lead Developer
+  - **Contact:** [ortiz.erick.67@gmail.com](mailto:ortiz.erick.67@gmail.com)
