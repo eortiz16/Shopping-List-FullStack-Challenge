@@ -36,7 +36,7 @@ Follow these instructions to set up and run the project on your local machine.
 
 ```sh
 git clone https://github.com/eortiz16/Shopping-List-FullStack-Challenge.git
-cd shopping-list-fullstack
+cd Shopping-List-FullStack-Challenge
 ```
 
 ## Running the Application
