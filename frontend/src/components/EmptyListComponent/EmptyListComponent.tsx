@@ -26,7 +26,7 @@ const EmptyListComponent: React.FC<EmptyListComponentProps> = ({
             component="div"
             className="empty-list-text"
           >
-            Your shopping list is empty :(
+            {`Your shopping list is empty :(`}
           </Typography>
           <Button
             variant="contained"

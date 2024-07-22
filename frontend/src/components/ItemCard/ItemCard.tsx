@@ -13,7 +13,7 @@ import './ItemCard.scss';
  *
  * @param {Object} props - The props object.
  * @param {Item} props.item - The item object containing id, name, description, and purchased status.
- * @param {Function} props.onTogglePurchased - The function to toggle the purchased status of the item.
+ * @param {Function} props.handlePurchased - The function to toggle the purchased status of the item.
  * @param {Function} props.onEdit - The function to edit the item.
  * @param {Function} props.onDelete - The function to delete the item.
  *
@@ -21,7 +21,7 @@ import './ItemCard.scss';
  */
 const ItemCard: React.FC<ItemCardProps> = ({
   item,
-  onTogglePurchased,
+  handlePurchased,
   onEdit,
   onDelete,
 }) => {
@@ -33,7 +33,7 @@ const ItemCard: React.FC<ItemCardProps> = ({
       <Box display="flex" alignItems="center">
         <Checkbox
           checked={item.purchased}
-          onChange={() => onTogglePurchased(item.id)}
+          onChange={() => handlePurchased(item.id)}
           classes={{ root: 'custom-checkbox' }}
           id={String(item.id)}
         />
@@ -47,10 +47,10 @@ const ItemCard: React.FC<ItemCardProps> = ({
         </Box>
       </Box>
       <Box>
-        <IconButton onClick={onEdit}>
+        <IconButton onClick={() => onEdit(item)}>
           <div className="material-icons-outlined">edit</div>
         </IconButton>
-        <IconButton onClick={onDelete}>
+        <IconButton onClick={() => onDelete(item)}>
           <div className="material-icons-outlined">delete</div>
         </IconButton>
       </Box>

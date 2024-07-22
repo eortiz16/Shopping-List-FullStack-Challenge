@@ -1,110 +1,88 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 
 import EmptyListComponent from '../../components/EmptyListComponent/EmptyListComponent';
 import PopulatedListComponent from '../../components/PopulatedListComponent/PopulatedListComponent';
-import shoppingListData from '../../mock/shoppingList';
-import {
-  getItems,
-  addItem,
-  deleteItem,
-  editItem,
-} from '../../services/itemService';
-import ErrorComponent from '../../shared/ErrorComponent/ErrorComponent';
-import Loading from '../../shared/LoadingComponent/LoadingComponent';
-import StyledModal from '../../shared/StyledModal/StyledModal';
 import { Item } from '../../types/Item';
-import AddItemContent from '../AddItemContent/AddItemContent';
+import { ModalType } from '../../types/ModalType';
+import { useFetchItems } from '../../utils/UseFetchItems';
+import { useModalHandlers } from '../../utils/UseModalHandlers';
+import LoadingErrorWrapper from '../LoadingErrorWrapper/LoadingErrorWrapper';
+import Modals from '../Modals/Modals';
 
-
-/**
- * ShoppingList component manages the overall shopping list.
- * It fetches items from the server, handles loading and error states,
- * and provides functionality to add, edit, and delete items.
- *
- * @returns {JSX.Element} The rendered shopping list component.
- */
 const ShoppingList: React.FC = () => {
-  const [items, setItems] = useState<Item[]>(shoppingListData);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [openAddModal, setOpenAddModal] = useState(false);
+  // Custom hook to fetch items from the server and manage state
+  const { items, setItems, loading, error, setError } = useFetchItems();
+  const [selectedItem, setSelectedItem] = useState<Item | null>(null);
+  const [modalType, setModalType] = useState<ModalType | null>(null);
 
-  useEffect(() => {
-    const fetchItems = async () => {
-      try {
-        const data = await getItems();
-        setItems(data);
-      } catch (err) {
-        setError((err as Error).message);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchItems();
+  // Handler to close the modal and reset modalType and selectedItem states
+  const handleCloseModal = useCallback(() => {
+    setModalType(null);
+    setSelectedItem(null);
   }, []);
 
-  const handleOpenAddModal = useCallback(() => setOpenAddModal(true), []);
-  const handleCloseAddModal = useCallback(() => setOpenAddModal(false), []);
-
-  const handleAddItem = useCallback(
-    async (item: Omit<Item, 'id' | 'purchased'>) => {
-      try {
-        const newItem = await addItem({ ...item, purchased: false });
-        setItems((prevItems) => [...prevItems, newItem]);
-        setOpenAddModal(false);
-      } catch (err) {
-        setError((err as Error).message);
-      }
-    },
-    []
+  // Custom hook to handle adding, deleting, and editing items
+  const { handleAddItem, handleDeleteItem, handleEditItem } = useModalHandlers(
+    setItems,
+    handleCloseModal,
+    setError
   );
 
-  const handleDeleteItem = useCallback(async (id: number) => {
-    try {
-      await deleteItem(id);
-      setItems((prevItems) => prevItems.filter((item) => item.id !== id));
-    } catch (err) {
-      setError((err as Error).message);
-    }
+  /**
+  * Handler to open different types of modals.
+  *
+  * @param {ModalType} type - The type of the modal to open.
+  * @param {Item | null} [item=null] - The item to set as selected, if applicable.
+  */
+  const handleOpenModal = useCallback((type: ModalType, item: Item | null = null) => {
+    setSelectedItem(item);
+    setModalType(type);
   }, []);
 
-  const handleEditItem = useCallback(
-    async (id: number, updatedItem: Partial<Item>) => {
-      try {
-        const savedItem = await editItem(id, updatedItem);
-        setItems((prevItems) =>
-          prevItems.map((item) => (item.id === id ? savedItem : item))
-        );
-      } catch (err) {
-        setError((err as Error).message);
+  // Handler to toggle the purchased state of an item
+  const handlePurchased = useCallback(
+    (id: number) => {
+      let updatedItem: Item | null = null;
+
+      const updatedItems = items.map((item) => {
+        if (item.id === id) {
+          updatedItem = { ...item, purchased: !item.purchased };
+          return updatedItem;
+        }
+        return item;
+      });
+
+      if (updatedItem) {
+        setItems(updatedItems);
+        handleEditItem(id, updatedItem);
       }
     },
-    []
+    [items, setItems, handleEditItem]
   );
 
-  if (loading) return <Loading />;
-  if (error) return <ErrorComponent errorMessage={error} />;
 
   return (
-    <>
+    <LoadingErrorWrapper loading={loading} error={error}>
       {items.length > 0 ? (
         <PopulatedListComponent
           items={items}
-          setItems={setItems}
-          handleOpenAdd={handleOpenAddModal}
-          handleDeleteItem={handleDeleteItem}
-          handleEditItem={handleEditItem}
+          handleOpenAdd={() => handleOpenModal(ModalType.ADD)}
+          handleOpenEdit={(item) => handleOpenModal(ModalType.EDIT, item)}
+          handleOpenDelete={(item) => handleOpenModal(ModalType.DELETE, item)}
+          handlePurchased={handlePurchased}
         />
       ) : (
-        <EmptyListComponent handleOpenAdd={handleOpenAddModal} />
+        <EmptyListComponent handleOpenAdd={() => handleOpenModal(ModalType.ADD)} />
       )}
-      <StyledModal open={openAddModal} handleCancel={handleCloseAddModal}>
-        <AddItemContent
-          handleAddItem={handleAddItem}
-          handleCancel={handleCloseAddModal}
-        />
-      </StyledModal>
-    </>
+      <Modals
+        modalType={modalType}
+        selectedItem={selectedItem}
+        handleCloseModal={handleCloseModal}
+        handleAddItem={handleAddItem}
+        handleEditItem={handleEditItem}
+        handleDeleteItem={handleDeleteItem}
+      />
+    </LoadingErrorWrapper>
   );
 };
 

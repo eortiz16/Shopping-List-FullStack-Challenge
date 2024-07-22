@@ -57,7 +57,7 @@ const AddItemContent: React.FC<AddItemContentProps> = ({
               value={itemName}
               onChange={(e) => setItemName(e.target.value)}
               className="modal-textfield"
-              id='add-item-name'
+              id="add-item-name"
             />
           </Grid>
           <Grid item xs={12}>
@@ -75,19 +75,19 @@ const AddItemContent: React.FC<AddItemContentProps> = ({
                 className: 'modal-helper-text',
               }}
               className="modal-textfield"
-              id='add-item-description'
+              id="add-item-description"
             />
           </Grid>
           <Grid item xs={12}>
             <TextField
-             fullWidth
-             label="How many?"
-             variant="outlined"
-             select
-             value={quantity}
-             onChange={(e) => setQuantity(e.target.value)}
-             className="modal-textfield"
-             id="add-item-quantity" 
+              fullWidth
+              label="How many?"
+              variant="outlined"
+              select
+              value={quantity}
+              onChange={(e) => setQuantity(e.target.value)}
+              className="modal-textfield"
+              id="add-item-quantity"
             >
               {quantityOptions.map((option) => (
                 <MenuItem key={option} value={option} id={String(option)}>
@@ -97,7 +97,6 @@ const AddItemContent: React.FC<AddItemContentProps> = ({
             </TextField>
           </Grid>
         </Grid>
-
       </Box>
       <Box>
         <ModalActions

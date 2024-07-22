@@ -1,13 +1,8 @@
-import React, { useState, useCallback } from 'react';
+import React from 'react';
 
 import { Box, Button, Typography } from '@mui/material';
 
-import StyledModal from '../../shared/StyledModal/StyledModal';
-import { Item } from '../../types/Item';
-import { ModalType } from '../../types/ModalType';
 import { PopulatedListComponentProps } from '../../types/PopulatedListComponentProps';
-import DeleteItemModal from '../DeleteItemModal/DeleteItemModal';
-import EditItemContent from '../EditItemContent/EditItemContent';
 import ItemCard from '../ItemCard/ItemCard';
 import './PopulatedListComponent.scss';
 
@@ -17,69 +12,22 @@ import './PopulatedListComponent.scss';
  *
  * @param {Object} props - The props object.
  * @param {Array} props.items - The array of items in the shopping list.
- * @param {Function} props.setItems - The function to update the items in the list.
  * @param {Function} props.handleOpenAdd - The function to open the add item modal.
- * @param {Function} props.handleDeleteItem - The function to delete an item from the list.
- * @param {Function} props.handleEditItem - The function to edit an item in the list.
+ * @param {Function} props.handleOpenDelete - The function to open the delete item modal.
+ * @param {Function} props.handleOpenEdit - The function to open the edit item modal.
+ * @param {Function} props.handlePurchased - The function to toggle purchased items.
  *
  * @returns {JSX.Element} The rendered populated list component.
  */
 const PopulatedListComponent: React.FC<PopulatedListComponentProps> = ({
   items,
-  setItems,
   handleOpenAdd,
-  handleDeleteItem,
-  handleEditItem,
+  handleOpenEdit,
+  handleOpenDelete,
+  handlePurchased,
 }) => {
-  const [selectedItem, setSelectedItem] = useState<Item | null>(null);
-  const [modalType, setModalType] = useState<ModalType | null>(null);
-
-  const handleOpenModal = useCallback((type: ModalType) => {
-    setModalType(type);
-  }, []);
-
-  const handleCloseModal = useCallback(() => {
-    setModalType(null);
-    setSelectedItem(null);
-  }, []);
-
-  const handleTogglePurchased = useCallback(
-    (id: number) => {
-      const updatedItems = items.map((item) =>
-        item.id === id ? { ...item, purchased: !item.purchased } : item
-      );
-      setItems(updatedItems);
-
-      const updatedItem = updatedItems.find((item) => item.id === id);
-      if (updatedItem) {
-        handleEditItem(id, updatedItem);
-      }
-    },
-    [items, setItems, handleEditItem]
-  );
-
-  const handleOpenEdit = useCallback(
-    (item: Item) => {
-      setSelectedItem(item);
-      handleOpenModal(ModalType.EDIT);
-    },
-    [handleOpenModal]
-  );
-
-  const handleOpenDelete = useCallback(
-    (item: Item) => {
-      setSelectedItem(item);
-      handleOpenModal(ModalType.DELETE);
-    },
-    [handleOpenModal]
-  );
-
-  const handleDeleteSelectedItem = useCallback(() => {
-    if (selectedItem) {
-      handleDeleteItem(selectedItem.id);
-      handleCloseModal();
-    }
-  }, [selectedItem, handleDeleteItem, handleCloseModal]);
+  // Sort items by ascending id
+  const sortedItems = items.slice().sort((a, b) => a.id - b.id);
 
   return (
     <div className="parent-container">
@@ -93,45 +41,16 @@ const PopulatedListComponent: React.FC<PopulatedListComponentProps> = ({
           </Button>
         </Box>
         <Box className="items-list">
-          {items.map((item) => (
+          {sortedItems.map((item) => (
             <ItemCard
               key={item.id}
               item={item}
-              onTogglePurchased={() => handleTogglePurchased(item.id)}
-              onEdit={() => handleOpenEdit(item)}
-              onDelete={() => handleOpenDelete(item)}
+              handlePurchased={handlePurchased}
+              onEdit={handleOpenEdit}
+              onDelete={handleOpenDelete}
             />
           ))}
         </Box>
-
-        {selectedItem && modalType === ModalType.EDIT && (
-          <StyledModal
-            key="edit-modal"
-            open={modalType === ModalType.EDIT}
-            handleCancel={handleCloseModal}
-          >
-            <EditItemContent
-              handleCancel={handleCloseModal}
-              item={selectedItem}
-              handleEditItem={(id, updatedItem) => {
-                handleEditItem(id, updatedItem);
-                setItems((prevItems) =>
-                  prevItems.map((item) =>
-                    item.id === id ? { ...item, ...updatedItem } : item
-                  )
-                );
-              }}
-            />
-          </StyledModal>
-        )}
-        {selectedItem && modalType === ModalType.DELETE && (
-          <DeleteItemModal
-            key="delete-modal"
-            open={modalType === ModalType.DELETE}
-            handleClose={handleCloseModal}
-            onDelete={handleDeleteSelectedItem}
-          />
-        )}
       </div>
     </div>
   );

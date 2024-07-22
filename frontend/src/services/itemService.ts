@@ -19,9 +19,9 @@ const api = axios.create({
  */
 const handleError = (error: unknown) => {
   if (isAxiosError(error)) {
-    console.error('API error:', error.response?.data || error.message);
+    throw new Error(error.response?.data || error.message);
   } else {
-    console.error('Unexpected error:', error);
+    throw new Error('An unexpected error occurred');
   }
 };
 

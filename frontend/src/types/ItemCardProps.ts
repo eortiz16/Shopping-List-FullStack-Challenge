@@ -5,7 +5,7 @@ import { Item } from './Item';
  */
 export interface ItemCardProps {
   item: Item;
-  onTogglePurchased: (id: number) => void;
-  onEdit: () => void;
-  onDelete: () => void;
+  handlePurchased: (id: number) => void;
+  onEdit: (item: Item) => void;
+  onDelete: (item: Item) => void;
 }

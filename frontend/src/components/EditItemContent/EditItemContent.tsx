@@ -90,7 +90,7 @@ const EditItemContent: React.FC<EditItemContentProps> = ({
               value={itemName}
               onChange={(e) => setItemName(e.target.value)}
               className="modal-textfield"
-              id='edit-item-name'
+              id="edit-item-name"
             />
           </Grid>
           <Grid item xs={12}>
@@ -108,7 +108,7 @@ const EditItemContent: React.FC<EditItemContentProps> = ({
                 className: 'modal-helper-text',
               }}
               className="modal-textfield"
-              id='edit-item-description'
+              id="edit-item-description"
             />
           </Grid>
           <Grid item xs={12}>
@@ -120,7 +120,7 @@ const EditItemContent: React.FC<EditItemContentProps> = ({
               value={quantity}
               onChange={(e) => setQuantity(e.target.value)}
               className="modal-textfield"
-              id='edit-item-quantity'
+              id="edit-item-quantity"
             >
               {quantityOptions.map((option) => (
                 <MenuItem key={option} value={option} id={String(option)}>
@@ -138,12 +138,12 @@ const EditItemContent: React.FC<EditItemContentProps> = ({
                   name="checked"
                   color="primary"
                   className="custom-checkbox"
-                  id='checkbox'
+                  id="checkbox"
                 />
               }
               className="custom-checkbox-label"
               label="Purchased"
-              id='edit-item-purchased'
+              id="edit-item-purchased"
             />
           </Grid>
         </Grid>
