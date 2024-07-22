@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { Box, Button } from '@mui/material';
+
 import { ModalActionsProps } from '../../types/ModalActionsProps';
 import { ModalType } from '../../types/ModalType';
 import './ModalActions.scss';

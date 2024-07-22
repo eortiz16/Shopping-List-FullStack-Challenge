@@ -1,9 +1,11 @@
 import React, { useState, useCallback } from 'react';
+
 import { TextField, MenuItem, Grid, Box, Typography } from '@mui/material';
-import { AddItemContentProps } from '../../types/AddItemContentProps';
-import ModalActions from '../../shared/ModalActions/ModalActions';
-import { ModalType } from '../../types/ModalType';
+
 import { CHARACTER_LIMIT, quantityOptions } from '../../config/config';
+import ModalActions from '../../shared/ModalActions/ModalActions';
+import { AddItemContentProps } from '../../types/AddItemContentProps';
+import { ModalType } from '../../types/ModalType';
 import '../../styles/modal-content.scss';
 
 /**
@@ -55,6 +57,7 @@ const AddItemContent: React.FC<AddItemContentProps> = ({
               value={itemName}
               onChange={(e) => setItemName(e.target.value)}
               className="modal-textfield"
+              id='add-item-name'
             />
           </Grid>
           <Grid item xs={12}>
@@ -72,26 +75,29 @@ const AddItemContent: React.FC<AddItemContentProps> = ({
                 className: 'modal-helper-text',
               }}
               className="modal-textfield"
+              id='add-item-description'
             />
           </Grid>
           <Grid item xs={12}>
             <TextField
-              fullWidth
-              label="How many?"
-              variant="outlined"
-              select
-              value={quantity}
-              onChange={(e) => setQuantity(e.target.value)}
-              className="modal-textfield"
+             fullWidth
+             label="How many?"
+             variant="outlined"
+             select
+             value={quantity}
+             onChange={(e) => setQuantity(e.target.value)}
+             className="modal-textfield"
+             id="add-item-quantity" 
             >
               {quantityOptions.map((option) => (
-                <MenuItem key={option} value={option}>
+                <MenuItem key={option} value={option} id={String(option)}>
                   {option}
                 </MenuItem>
               ))}
             </TextField>
           </Grid>
         </Grid>
+
       </Box>
       <Box>
         <ModalActions

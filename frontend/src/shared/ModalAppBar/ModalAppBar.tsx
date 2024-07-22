@@ -1,8 +1,7 @@
 import React from 'react';
-import Typography from '@mui/material/Typography';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import { Box } from '@mui/material';
+
+import { Box, Toolbar, AppBar, Typography } from '@mui/material';
+
 import './ModalAppBar.scss';
 
 /**

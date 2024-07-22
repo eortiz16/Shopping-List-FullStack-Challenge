@@ -1,4 +1,5 @@
-import axios from 'axios';
+import axios, { isAxiosError } from 'axios';
+
 import { Item } from '../types/Item';
 
 // Base URL for the API, fetched from environment variables or default to localhost
@@ -16,10 +17,12 @@ const api = axios.create({
  * @param error - The error object from request
  * @throws An Error with a relevant message
  */
-const handleError = (error: any): never => {
-  const errorMessage = error.response?.data?.message || error.message || 'An unknown error occurred';
-  console.error(errorMessage);
-  throw new Error(errorMessage);
+const handleError = (error: unknown) => {
+  if (isAxiosError(error)) {
+    console.error('API error:', error.response?.data || error.message);
+  } else {
+    console.error('Unexpected error:', error);
+  }
 };
 
 /**
@@ -64,7 +67,7 @@ export const editItem = async (id: number, item: Partial<Item>): Promise<Item> =
   try {
     const response = await api.put<Item>(`/${id}`, item);
     return response.data;
-  } catch (error) {
+  } catch (error: unknown) {
     handleError(error);
     return {} as Item;
   }

@@ -5,9 +5,9 @@
  * @interface Item
  */
 export interface Item {
-    id?: number;
+    id: number;
     name: string;
-    description?: string;
+    description: string;
     quantity: number;
     purchased: boolean;
   }

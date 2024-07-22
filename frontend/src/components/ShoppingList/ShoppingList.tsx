@@ -1,18 +1,20 @@
 import React, { useEffect, useState, useCallback } from 'react';
+
 import EmptyListComponent from '../../components/EmptyListComponent/EmptyListComponent';
 import PopulatedListComponent from '../../components/PopulatedListComponent/PopulatedListComponent';
 import shoppingListData from '../../mock/shoppingList';
-import { Item } from '../../types/Item';
-import StyledModal from '../../shared/StyledModal/StyledModal';
-import AddItemContent from '../AddItemContent/AddItemContent';
 import {
   getItems,
   addItem,
   deleteItem,
   editItem,
 } from '../../services/itemService';
-import Loading from '../../shared/LoadingComponent/LoadingComponent';
 import ErrorComponent from '../../shared/ErrorComponent/ErrorComponent';
+import Loading from '../../shared/LoadingComponent/LoadingComponent';
+import StyledModal from '../../shared/StyledModal/StyledModal';
+import { Item } from '../../types/Item';
+import AddItemContent from '../AddItemContent/AddItemContent';
+
 
 /**
  * ShoppingList component manages the overall shopping list.

@@ -1,7 +1,10 @@
 import React from 'react';
+
 import { Box, Modal } from '@mui/material';
+
 import { StyledModalProps } from '../../types/StyledModalProps';
 import ModalAppBar from '../ModalAppBar/ModalAppBar';
+
 import './StyledModal.scss';
 
 /**

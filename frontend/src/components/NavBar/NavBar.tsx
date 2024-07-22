@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Box, Toolbar, Typography, AppBar } from '@mui/material';
 import './NavBar.scss';
 

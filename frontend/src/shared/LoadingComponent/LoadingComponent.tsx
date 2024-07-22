@@ -1,5 +1,5 @@
-// Loading.tsx
 import React from 'react';
+
 import { Box, CircularProgress } from '@mui/material';
 import './LoadingComponent.scss';
 

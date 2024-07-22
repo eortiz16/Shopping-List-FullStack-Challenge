@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { Card, Box, Checkbox, Typography, IconButton } from '@mui/material';
+
 import { ItemCardProps } from '../../types/ItemCardProps';
 import './ItemCard.scss';
 
@@ -33,6 +35,7 @@ const ItemCard: React.FC<ItemCardProps> = ({
           checked={item.purchased}
           onChange={() => onTogglePurchased(item.id)}
           classes={{ root: 'custom-checkbox' }}
+          id={String(item.id)}
         />
         <Box className="item-card-text-container">
           <Typography variant="h6" className="item-name">

@@ -1,12 +1,14 @@
 import React, { useState, useCallback } from 'react';
+
 import { Box, Button, Typography } from '@mui/material';
-import ItemCard from '../ItemCard/ItemCard';
-import { Item } from '../../types/Item';
-import { PopulatedListComponentProps } from '../../types/PopulatedListComponentProps';
-import { ModalType } from '../../types/ModalType';
+
 import StyledModal from '../../shared/StyledModal/StyledModal';
-import EditItemContent from '../EditItemContent/EditItemContent';
+import { Item } from '../../types/Item';
+import { ModalType } from '../../types/ModalType';
+import { PopulatedListComponentProps } from '../../types/PopulatedListComponentProps';
 import DeleteItemModal from '../DeleteItemModal/DeleteItemModal';
+import EditItemContent from '../EditItemContent/EditItemContent';
+import ItemCard from '../ItemCard/ItemCard';
 import './PopulatedListComponent.scss';
 
 /**

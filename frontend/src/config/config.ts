@@ -17,4 +17,4 @@ const generateRange = (start: number, end: number): number[] => {
 };
 
 export const quantityOptions: number[] = generateRange(RANGE_START, RANGE_END);
-export const CHARACTER_LIMIT: number = 100;
+export const CHARACTER_LIMIT = 100;
