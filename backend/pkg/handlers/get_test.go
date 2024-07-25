@@ -26,11 +26,11 @@ func TestItemsHandler(t *testing.T) {
 		defer db.Close()
 
 		// Mock the query and rows
-		rows := sqlmock.NewRows([]string{"id", "name", "description", "quantity", "purchased", "created_at"}).
-			AddRow(1, "Item 1", "Description 1", 1, false, time.Now()).
-			AddRow(2, "Item 2", "Description 2", 2, true, time.Now())
+		rows := sqlmock.NewRows([]string{"id", "name", "description", "quantity", "purchased", "due_date", "created_at"}).
+			AddRow(1, "Item 1", "Description 1", 1, false, time.Now(), time.Now()).
+			AddRow(2, "Item 2", "Description 2", 2, true, time.Now(), time.Now())
 
-		mock.ExpectQuery("SELECT id, name, description, quantity, purchased, created_at FROM items").WillReturnRows(rows)
+		mock.ExpectQuery("SELECT id, name, description, quantity, purchased, due_date, created_at FROM items").WillReturnRows(rows)
 
 		h := handlers.NewHandler(db)
 		r.GET("/shopping-list-api/v1/items", h.ItemsHandler)
@@ -56,9 +56,8 @@ func TestItemsHandler(t *testing.T) {
 		defer db.Close()
 
 		// Mock the query with empty result
-		rows := sqlmock.NewRows([]string{"id", "name", "description", "quantity", "purchased", "created_at"})
-
-		mock.ExpectQuery("SELECT id, name, description, quantity, purchased, created_at FROM items").WillReturnRows(rows)
+		rows := sqlmock.NewRows([]string{"id", "name", "description", "quantity", "purchased", "due_date", "created_at"})
+		mock.ExpectQuery("SELECT id, name, description, quantity, purchased, due_date, created_at FROM items").WillReturnRows(rows)
 
 		h := handlers.NewHandler(db)
 		r.GET("/shopping-list-api/v1/items", h.ItemsHandler)
@@ -111,12 +110,12 @@ func TestItemsHandler(t *testing.T) {
 		defer db.Close()
 
 		// Mock the query to return rows with an error during iteration
-		rows := sqlmock.NewRows([]string{"id", "name", "description", "quantity", "purchased", "created_at"}).
-			AddRow(1, "Item 1", "Description 1", 1, false, time.Now()).
-			AddRow(2, "Item 2", "Description 2", 2, true, time.Now()).
+		rows := sqlmock.NewRows([]string{"id", "name", "description", "quantity", "purchased", "due_date", "created_at"}).
+			AddRow(1, "Item 1", "Description 1", 1, false, time.Now(), time.Now()).
+			AddRow(2, "Item 2", "Description 2", 2, true, time.Now(), time.Now()).
 			RowError(1, sql.ErrConnDone)
 
-		mock.ExpectQuery("SELECT id, name, description, quantity, purchased, created_at FROM items").WillReturnRows(rows)
+		mock.ExpectQuery("SELECT id, name, description, quantity, purchased, due_date, created_at FROM items").WillReturnRows(rows)
 
 		h := handlers.NewHandler(db)
 		r.GET("/shopping-list-api/v1/items", h.ItemsHandler)

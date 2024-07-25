@@ -27,10 +27,10 @@ func TestIntegration(t *testing.T) {
 	// Test /items endpoint
 	t.Run("GET //items", func(t *testing.T) {
 		// Mock the query and rows
-		rows := sqlmock.NewRows([]string{"id", "name", "description", "quantity", "purchased", "created_at"}).
-			AddRow(1, "Item 1", "Description 1", 1, false, time.Now()).
-			AddRow(2, "Item 2", "Description 2", 2, true, time.Now())
-		mock.ExpectQuery("SELECT id, name, description, quantity, purchased, created_at FROM items").WillReturnRows(rows)
+		rows := sqlmock.NewRows([]string{"id", "name", "description", "quantity", "purchased", "due_date", "created_at"}).
+			AddRow(1, "Item 1", "Description 1", 1, false, time.Now(), time.Now()).
+			AddRow(2, "Item 2", "Description 2", 2, true, time.Now(), time.Now())
+		mock.ExpectQuery("SELECT id, name, description, quantity, purchased, due_date, created_at FROM items").WillReturnRows(rows)
 
 		// Create a request to the endpoint
 		req, _ := http.NewRequest(http.MethodGet, "/shopping-list-api/v1/items", nil)

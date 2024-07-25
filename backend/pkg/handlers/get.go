@@ -18,7 +18,7 @@ import (
 func (h *Handler) ItemsHandler(c *gin.Context) {
 	var items []models.Item
 
-	rows, err := h.DB.Query("SELECT * FROM items")
+	rows, err := h.DB.Query("SELECT id, name, description, quantity, purchased, due_date, created_at FROM items")
 	if err != nil {
 		RespondWithError(c, http.StatusInternalServerError, "Failed to query items")
 		return
@@ -41,8 +41,7 @@ func (h *Handler) ItemsHandler(c *gin.Context) {
 
 	// Return an empty array if no items found
 	if len(items) == 0 {
-		c.JSON(http.StatusOK, []models.Item{})
-		return
+		items = []models.Item{}
 	}
 
 	c.JSON(http.StatusOK, items)
