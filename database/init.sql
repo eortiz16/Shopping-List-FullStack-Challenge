@@ -5,6 +5,6 @@ CREATE TABLE items (
     description VARCHAR(100),
     quantity INT CHECK (quantity > 0),
     purchased BOOLEAN DEFAULT FALSE,
-    due_dat TIMESTAMP
+    due_date TIMESTAMP,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
