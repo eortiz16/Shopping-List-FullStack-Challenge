@@ -5,12 +5,13 @@ import { TextField, MenuItem, Grid, Box, Typography } from '@mui/material';
 import { CHARACTER_LIMIT, quantityOptions } from '../../config/config';
 import ModalActions from '../../shared/ModalActions/ModalActions';
 import { AddItemContentProps } from '../../types/AddItemContentProps';
+import { Item } from '../../types/Item';
 import { ModalType } from '../../types/ModalType';
 import '../../styles/modal-content.scss';
 
 /**
  * AddItemContent component provides a form for adding a new item to the shopping list.
- * It includes fields for the item name, description, and quantity.
+ * It includes fields for the item name, description, quantity, and due date.
  *
  * @param {Object} props - The props object.
  * @param {Function} props.handleAddItem - The function to add the item to the list.
@@ -25,13 +26,25 @@ const AddItemContent: React.FC<AddItemContentProps> = ({
   const [itemName, setItemName] = useState<string>('');
   const [description, setDescription] = useState<string>('');
   const [quantity, setQuantity] = useState<string>('');
+  const [date, setDate] = useState<string>('');
 
   const handleSubmit = useCallback(() => {
-    const quantityNumber = Number(quantity);
-    if (itemName && quantityNumber > 0) {
-      handleAddItem({ name: itemName, description, quantity: quantityNumber });
-    }
-  }, [itemName, description, quantity, handleAddItem]);
+    const updatedItem: Omit<Item, "id" | "purchased"> = {
+      name: itemName,
+      description,
+      quantity: Number(quantity),
+      due_date: new Date(date),
+    };
+
+    handleAddItem(updatedItem);
+    handleCancel();
+  }, [
+    itemName,
+    description,
+    quantity,
+    date,
+    handleCancel,
+  ]);
 
   return (
     <Box className="modal-content">
@@ -95,6 +108,18 @@ const AddItemContent: React.FC<AddItemContentProps> = ({
                 </MenuItem>
               ))}
             </TextField>
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              type="date"
+              label="Due Date"
+              InputLabelProps={{ shrink: true }}
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              className="modal-textfield"
+              id="add-item-due-date"
+            />
           </Grid>
         </Grid>
       </Box>

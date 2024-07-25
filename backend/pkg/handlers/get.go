@@ -18,7 +18,7 @@ import (
 func (h *Handler) ItemsHandler(c *gin.Context) {
 	var items []models.Item
 
-	rows, err := h.DB.Query("SELECT id, name, description, quantity, purchased, created_at FROM items")
+	rows, err := h.DB.Query("SELECT * FROM items")
 	if err != nil {
 		RespondWithError(c, http.StatusInternalServerError, "Failed to query items")
 		return
@@ -27,7 +27,7 @@ func (h *Handler) ItemsHandler(c *gin.Context) {
 
 	for rows.Next() {
 		var item models.Item
-		if err := rows.Scan(&item.ID, &item.Name, &item.Description, &item.Quantity, &item.Purchased, &item.CreatedAt); err != nil {
+		if err := rows.Scan(&item.ID, &item.Name, &item.Description, &item.Quantity, &item.Purchased, &item.DueDate, &item.CreatedAt); err != nil {
 			RespondWithError(c, http.StatusInternalServerError, "Failed to scan item")
 			return
 		}

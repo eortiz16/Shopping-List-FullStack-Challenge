@@ -7,12 +7,12 @@ import './ItemCard.scss';
 
 /**
  * ItemCard component represents a single item in the shopping list.
- * It displays the item's name, description, and purchased status.
+ * It displays the item's name, description, due date, and purchased status.
  * Users can toggle the purchased status, edit the item, or delete the item
  * using the respective actions provided as props.
  *
  * @param {Object} props - The props object.
- * @param {Item} props.item - The item object containing id, name, description, and purchased status.
+ * @param {Item} props.item - The item object containing id, name, description, due_date, and purchased status.
  * @param {Function} props.handlePurchased - The function to toggle the purchased status of the item.
  * @param {Function} props.onEdit - The function to edit the item.
  * @param {Function} props.onDelete - The function to delete the item.
@@ -25,6 +25,11 @@ const ItemCard: React.FC<ItemCardProps> = ({
   onEdit,
   onDelete,
 }) => {
+  // Format the due date to the local timezone
+  const formattedDueDate = item.due_date 
+    ? new Date(item.due_date).toLocaleDateString(undefined, { timeZone: 'UTC' })
+    : 'No due date';
+
   return (
     <Card
       className={`item-card ${item.purchased ? 'purchased' : ''}`}
@@ -43,6 +48,9 @@ const ItemCard: React.FC<ItemCardProps> = ({
           </Typography>
           <Typography variant="body1" className="item-description">
             {item.description}
+          </Typography>
+          <Typography variant="body2" className="item-due-date">
+            Due Date: {formattedDueDate}
           </Typography>
         </Box>
       </Box>

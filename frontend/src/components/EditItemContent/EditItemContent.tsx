@@ -18,7 +18,7 @@ import '../../styles/modal-content.scss';
 
 /**
  * EditItemContent component provides a form for editing an existing item in the shopping list.
- * It includes fields for the item name, description, quantity, and a checkbox for purchase status.
+ * It includes fields for the item name, description, quantity, due date, and a checkbox for purchase status.
  *
  * @param {Object} props - The props object.
  * @param {Function} props.handleCancel - The function to cancel the edit item action.
@@ -36,6 +36,7 @@ const EditItemContent: React.FC<EditItemContentProps> = ({
   const [description, setDescription] = useState('');
   const [quantity, setQuantity] = useState<number | string>('');
   const [checked, setChecked] = useState(false);
+  const [date, setDate] = useState<string>('');
 
   useEffect(() => {
     if (item) {
@@ -43,6 +44,7 @@ const EditItemContent: React.FC<EditItemContentProps> = ({
       setDescription(item.description);
       setQuantity(item.quantity);
       setChecked(item.purchased);
+      setDate(item.due_date ? new Date(item.due_date).toISOString().split('T')[0] : '');
     }
   }, [item]);
 
@@ -52,6 +54,7 @@ const EditItemContent: React.FC<EditItemContentProps> = ({
       description,
       quantity: Number(quantity),
       purchased: checked,
+      due_date: date ? new Date(date) : undefined,
     };
 
     handleEditItem(item.id, updatedItem);
@@ -61,6 +64,7 @@ const EditItemContent: React.FC<EditItemContentProps> = ({
     description,
     quantity,
     checked,
+    date,
     handleEditItem,
     handleCancel,
     item.id,
@@ -130,6 +134,18 @@ const EditItemContent: React.FC<EditItemContentProps> = ({
             </TextField>
           </Grid>
           <Grid item xs={12}>
+            <TextField
+              fullWidth
+              type="date"
+              label="Due Date"
+              InputLabelProps={{ shrink: true }}
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              className="modal-textfield"
+              id="edit-item-due-date"
+            />
+          </Grid>
+          <Grid item xs={12}>
             <FormControlLabel
               control={
                 <Checkbox
@@ -144,7 +160,7 @@ const EditItemContent: React.FC<EditItemContentProps> = ({
               className="custom-checkbox-label"
               label="Purchased"
               id="edit-item-purchased"
-            />
+              />
           </Grid>
         </Grid>
       </Box>

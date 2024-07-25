@@ -34,8 +34,8 @@ func (h *Handler) AddItemHandler(c *gin.Context) {
 		return
 	}
 
-	query := "INSERT INTO items (name, description, quantity, purchased, created_at) VALUES ($1, $2, $3, $4, NOW()) RETURNING id, created_at"
-	err := h.DB.QueryRow(query, item.Name, item.Description, item.Quantity, item.Purchased).Scan(&item.ID, &item.CreatedAt)
+	query := "INSERT INTO items (name, description, quantity, purchased, due_date, created_at) VALUES ($1, $2, $3, $4, $5, NOW()) RETURNING id, name, description, quantity, purchased, due_date, created_at"
+	err := h.DB.QueryRow(query, item.Name, item.Description, item.Quantity, item.Purchased, item.DueDate).Scan(&item.ID, &item.Name, &item.Description, &item.Quantity, &item.Purchased, &item.DueDate, &item.CreatedAt)
 	if err != nil {
 		RespondWithError(c, http.StatusInternalServerError, "Failed to add item")
 		return

@@ -10,4 +10,5 @@ export interface Item {
     description: string;
     quantity: number;
     purchased: boolean;
+    due_date: Date;
   }

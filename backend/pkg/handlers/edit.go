@@ -53,9 +53,9 @@ func (h *Handler) EditItemHandler(c *gin.Context) {
 		return
 	}
 
-	query := "UPDATE items SET name=$1, description=$2, quantity=$3, purchased=$4 WHERE id=$5 RETURNING id, name, description, quantity, purchased, created_at"
+	query := "UPDATE items SET name=$1, description=$2, quantity=$3, purchased=$4, due_date=$5 WHERE id=$6 RETURNING id, name, description, quantity, purchased, due_date, created_at"
 	var updatedItem models.Item
-	err = h.DB.QueryRow(query, item.Name, item.Description, item.Quantity, item.Purchased, id).Scan(&updatedItem.ID, &updatedItem.Name, &updatedItem.Description, &updatedItem.Quantity, &updatedItem.Purchased, &updatedItem.CreatedAt)
+	err = h.DB.QueryRow(query, item.Name, item.Description, item.Quantity, item.Purchased, item.DueDate, id).Scan(&updatedItem.ID, &updatedItem.Name, &updatedItem.Description, &updatedItem.Quantity, &updatedItem.Purchased, &updatedItem.DueDate, &updatedItem.CreatedAt)
 	if err != nil {
 		RespondWithError(c, http.StatusInternalServerError, "Failed to update item")
 		return

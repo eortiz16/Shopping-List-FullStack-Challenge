@@ -1,6 +1,8 @@
 package models
 
-import "time"
+import (
+	"time"
+)
 
 type Item struct {
 	ID          int       `json:"id"`
@@ -8,6 +10,7 @@ type Item struct {
 	Description string    `json:"description"`
 	Quantity    int       `json:"quantity"`
 	Purchased   bool      `json:"purchased"`
+	DueDate     time.Time `json:"due_date"`
 	CreatedAt   time.Time `json:"created_at"`
 }
 

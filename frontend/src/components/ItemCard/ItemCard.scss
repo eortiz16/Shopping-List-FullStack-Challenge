@@ -16,7 +16,8 @@
     }
   }
 
-  .item-description {
+  .item-description,
+  .item-due-date {
     color: $color-modal-subtitle;
   }
 
@@ -33,6 +34,7 @@
       text-decoration: line-through;
     }
 
+    .item-due-date,
     .item-description {
       color: $color-main-subtext;
       text-decoration: line-through;
